@@ -1,0 +1,163 @@
+
+<html id="html">
+    <head>
+        <!--General Setting-->
+        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta charset="utf-8">
+        
+        <!--Site Setting-->
+        <title>Hexo</title>
+        
+        <!--Import StyleSheet-->
+        <link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/obsidian.min.css">
+        <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="render/mainpage.css">
+        <link rel="stylesheet" href="render/nplayer.css">
+        <link rel="stylesheet" href="render/main.css">
+        
+    </head>
+    <body>
+        <!-- Site Plugin -->
+        
+        <div id="mainpage" class="mainpage"  style="background-image: url('/background.jpg')">
+            <div class="header">
+                <h8>Hexo</h8>
+                <small></small>
+                <div id="mploading" class="loading2"></div>
+                <div id="mptoggle">&#xf106;</div>
+            </div>
+        </div>
+        <div id="nplayer">
+            <div class="ntitle">一首歌曲</div>
+            <div class="nsubtitle">NHibiki - 歌曲</div>
+            <div class="ncontrolplay"></div>
+            <div class="ncontrolnext"></div>
+            <div class="switcher"></div>
+            <audio id="naudio" repeat></audio>
+        </div>
+        
+        <!-- Site -->
+        <div id="container" class="container">
+            <!--Site Header-->
+            <div class="header">
+                <h8>Hexo</h8>
+                <small></small>
+                <hr />
+            </div>
+
+            
+
+            <!--Article-->
+            <div id="article" current="#">
+                <h8 id="atitle" class="article_title">Article</h8>
+                <div id="atime" class="article_time">2017/08/19 6:32 PM</div>
+                <div class="article_info">
+                    <ul id="acate" class="article_category">
+                        <a href="#/category/Category"><li>Category</li></a>
+                    </ul>
+                    <ul id="atag" class="article_tag">
+                        <a href="#/tag/Tag"><li>Tag</li></a>
+                        <a href="#/tag/NHibiki"><li>NHibiki</li></a>
+                    </ul>
+                    
+                </div>
+                <div id="acontent" class="article_content">
+                    <h3>Loading ...</h3>
+                    <div class="loading"></div>
+                </div>
+            </div>
+            
+            <!--Surf Control-->
+            <div class="page_control">
+                <button class="rbtn" onclick="prev();"> ← Prev </button>
+                <button class="rbtn" onclick="next();"> Next → </button>
+            </div>
+            
+            <!--Comments-->
+            <hr />
+            <div class="comments">
+              <div id="comments_table"></div>
+                <button id="comments_button" class="rbtn flatbtn" onclick="showComments();">Show Comments</button>
+            </div>
+            
+            <!--Site Footer-->
+            <div class="footer">
+                
+                <p class="siteinfo">Applying Creative Commons Attribution-NonCommercial 4.0 International License.</p>
+                
+                <p class="sitecpr">Using Theme <a href="https://github.com/NHibiki/hexo-theme-slice">Slice</a> By <a href="https://yuuno.cc">NHibiki</a>. Site Copyright &copy;John Doe 2018.</p>
+            </div>
+        </div>
+        
+        <div id="open" class="menubtn" onclick="showMenu();"></div>
+        <div id="top" class="topbtn" onclick="toTop(null);"></div>
+        <div id="menu" class="sideview">
+            <div class="header">
+                <h8>Hexo</h8>
+                <small></small>
+            </div>
+            <div class="searchbar">
+               <input id="search" placeholder="Search ..." value="">
+            </div>
+            <div class="sidemenu">
+                
+                    <a href="/#/home"><li>Home</li></a>
+                
+                    <a href="/#/article/about"><li>About</li></a>
+                
+                    <a href="/#/tag"><li>Tag</li></a>
+                
+                    <a href="/#/category"><li>Category</li></a>
+                
+                    <a href="/#/link"><li>Link</li></a>
+                
+            </div>
+            <div id="linktabletitle" class="sidelinktitle">Home</div>
+            <div id="linktable" class="sidelink"></div>
+        </div>
+        
+        <!--Import Script-->
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <!-- <script src="https://cdn.bootcss.com/zingtouch/1.0.5/zingtouch.min.js"></script> -->
+        <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+        <script src="script/swipe.js"></script>
+        <script>
+            var CONTENTURL='/content.json';
+            var SONGLIST = [
+                
+                    {
+                        title: "The Song&#39;s Name",
+                        subtitle: "Infomation you want to add to the song",
+                        src: "url to the song"
+                    },
+                
+                    {
+                        title: "The 2nd Song&#39;s Name",
+                        subtitle: "Infomation you want to add to the song",
+                        src: "url to the song"
+                    },
+                
+                ];
+            var FRIENDLIST = {
+                
+                    "YuunoHibiki": "https://yuuno.cc",
+                
+                    "Slice": "https://nhibiki.github.io/slice",
+                
+            };
+            var disqus_shortname = '';
+            var GITID = '';
+            var GITSEC = '';
+            var GITREPO = '';
+            var GITOWNER = '';
+            var WEBNAME = 'Hexo';
+        </script>
+        <script src="script/mainpage.js"></script>
+        <script src="script/controller.js"></script>
+        <script src="script/nplayer.js"></script>
+        <script src="script/main.js"></script>
+        
+        
+        
+    </body>
+</html>
