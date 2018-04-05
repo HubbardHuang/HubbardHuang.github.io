@@ -3,10 +3,10 @@
   
     
     <entry>
-      <title></title>
+      <title>我的第一篇博客</title>
       <link href="/2018/04/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
       <url>/2018/04/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-      <content type="html"><![CDATA[<hr><p>title: 我的第一篇博客</p><p>date: 2018-04-05 14:25:07</p><p>tags:</p><p>categories: </p><p>—<a id="more"></a></p><h1 id="嘻嘻嘻嘻嘻嘻"><a href="#嘻嘻嘻嘻嘻嘻" class="headerlink" title="嘻嘻嘻嘻嘻嘻"></a>嘻嘻嘻嘻嘻嘻</h1>]]></content>
+      <content type="html"><![CDATA[<a id="more"></a><h1 id="嘻嘻嘻嘻嘻嘻"><a href="#嘻嘻嘻嘻嘻嘻" class="headerlink" title="嘻嘻嘻嘻嘻嘻"></a>嘻嘻嘻嘻嘻嘻</h1>]]></content>
       
       
     </entry>
@@ -15,7 +15,7 @@
       <title>test_my_site</title>
       <link href="/2018/03/29/test-my-site/"/>
       <url>/2018/03/29/test-my-site/</url>
-      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      <content type="html"><![CDATA[<a id="more"></a><h1 id="����������"><a href="#����������" class="headerlink" title="����������"></a>����������</h1>]]></content>
       
       
     </entry>
