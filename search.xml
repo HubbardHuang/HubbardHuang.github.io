@@ -38,9 +38,9 @@
       
         <tags>
             
-            <tag> t2 </tag>
-            
             <tag> t1 </tag>
+            
+            <tag> t2 </tag>
             
         </tags>
       
@@ -61,11 +61,11 @@
       
         <tags>
             
+            <tag> t1 </tag>
+            
             <tag> t2 </tag>
             
             <tag> t3 </tag>
-            
-            <tag> t1 </tag>
             
         </tags>
       
