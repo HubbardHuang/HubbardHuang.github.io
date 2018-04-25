@@ -291,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/05/我的第一篇博客/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/YouCompleteMe的安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄浩博">
@@ -310,7 +310,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/05/我的第一篇博客/" itemprop="url">我的第一篇博客</a></h1>
+                <a class="post-title-link" href="/2018/04/25/YouCompleteMe的安装/" itemprop="url">YouCompleteMe�İ�װ</a></h1>
         
 
         <div class="post-meta">
@@ -322,8 +322,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-05T14:25:07+08:00">
-                2018-04-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T22:37:00+08:00">
+                2018-04-25
               </time>
             
 
@@ -332,28 +332,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/a/" itemprop="url" rel="index">
-                    <span itemprop="name">a</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -383,164 +361,59 @@
 
       
         
-          <p>啊~~emmmmm这一篇是。。。。。。。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/05/我的第一篇博客/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
+          
+            <h2 id="һ��YouCompleteMe���"><a href="#һ��YouCompleteMe���" class="headerlink" title="һ��YouCompleteMe���"></a>һ��YouCompleteMe���</h2><p>YouCompleteMeҲ����YCM����һ��֧�ֶ����ԵĴ����Զ���ȫ���������ϰ����vim��д������YCM����������߿���Ч�ʡ�</p>
+<h2 id="��������"><a href="#��������" class="headerlink" title="��������"></a>��������</h2><p>VirtualBox ubuntu 16.04 64-bit</p>
+<h2 id="������װ����"><a href="#������װ����" class="headerlink" title="������װ����"></a>������װ����</h2><ol>
+<li><p>��װgit</p>
+<pre><code>sudo apt install git
+</code></pre></li>
+<li><p>��github��ȡVundle.vimԴ�ļ�</p>
+<pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+</code></pre></li>
+<li><p>��~/.vimrcд��vundle�İ�װ����</p>
+<pre><code>vim ~/.vimrc
 
-    
+set nocompatible              &quot; be iMproved, required
+filetype off                  &quot; required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin &apos;VundleVim/Vundle.vim&apos;
+Plugin &apos;Valloric/YouCompleteMe&apos;
+Plugin &apos;tpope/vim-fugitive&apos;
+Plugin &apos;rstacruz/sparkup&apos;, {&apos;rtp&apos;: &apos;vim/&apos;}
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+</code></pre></li>
+<li><p>��vim���װvundle</p>
+<pre><code>cd ~
+vim +PluginInstall
+</code></pre></li>
+<li><p>��װlibclang</p>
+<pre><code>cd ~/.vim/bundle/YouCompleteMe
+sudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev
+</code></pre></li>
+<li><p>����libclang������ycm_core</p>
+<pre><code>mkdir ~/.ycm_build
+cd ~/.ycm_build
 
-    
+cmake -G &quot;Unix Makefiles&quot; -DUSE_SYSTEM_BOOST=ON -DEXTERNAL_LIBCLANG_PATH=/usr/lib/x86_64-linux-gnu/libclang-3.9.so . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
 
-    
+cmake --build . --target ycm_core --config Release
+</code></pre></li>
+<li><p>���ò����нű�</p>
+<pre><code>cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/
 
-    <div>
-      
-    </div>
+vim ~/.vimrc
+let g:ycm_server_python_interpreter=&apos;/usr/bin/python&apos;
+let g:ycm_global_ycm_extra_conf=&apos;~/.vim/.ycm_extra_conf.py&apos;
 
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/test-my-site/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄浩博">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hubbard Huang">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/29/test-my-site/" itemprop="url">test_my_site</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T23:42:30+08:00">
-                2018-03-29
-              </time>
-            
-
-            
-
-            
-          </span>
+cd ~/.vim/bundle/YouCompleteMe
+./install.py --clang-completer
+</code></pre></li>
+</ol>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/b/" itemprop="url" rel="index">
-                    <span itemprop="name">b</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>这一篇是。。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/29/test-my-site/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -780,7 +653,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -791,7 +664,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -802,7 +675,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

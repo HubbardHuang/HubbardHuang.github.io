@@ -3,44 +3,15 @@
   
     
     <entry>
-      <title>我的第一篇博客</title>
-      <link href="/2018/04/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-      <url>/2018/04/05/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-      <content type="html"><![CDATA[<p>啊~~emmmmm这一篇是。。。。。。。<br><a id="more"></a></p><h1 id="嘻嘻嘻嘻嘻嘻"><a href="#嘻嘻嘻嘻嘻嘻" class="headerlink" title="嘻嘻嘻嘻嘻嘻"></a>嘻嘻嘻嘻嘻嘻</h1>]]></content>
-      
-      <categories>
-          
-          <category> a </category>
-          
-      </categories>
+      <title>YouCompleteMe�İ�װ</title>
+      <link href="/2018/04/25/YouCompleteMe%E7%9A%84%E5%AE%89%E8%A3%85/"/>
+      <url>/2018/04/25/YouCompleteMe%E7%9A%84%E5%AE%89%E8%A3%85/</url>
+      <content type="html"><![CDATA[<h2 id="һ��YouCompleteMe���"><a href="#һ��YouCompleteMe���" class="headerlink" title="һ��YouCompleteMe���"></a>һ��YouCompleteMe���</h2><p>YouCompleteMeҲ����YCM����һ��֧�ֶ����ԵĴ����Զ���ȫ���������ϰ����vim��д������YCM����������߿���Ч�ʡ�</p><h2 id="��������"><a href="#��������" class="headerlink" title="��������"></a>��������</h2><p>VirtualBox ubuntu 16.04 64-bit</p><h2 id="������װ����"><a href="#������װ����" class="headerlink" title="������װ����"></a>������װ����</h2><ol><li><p>��װgit</p><pre><code>sudo apt install git</code></pre></li><li><p>��github��ȡVundle.vimԴ�ļ�</p><pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></pre></li><li><p>��~/.vimrcд��vundle�İ�װ����</p><pre><code>vim ~/.vimrcset nocompatible              &quot; be iMproved, requiredfiletype off                  &quot; requiredset rtp+=~/.vim/bundle/Vundle.vimcall vundle#begin()Plugin &apos;VundleVim/Vundle.vim&apos;Plugin &apos;Valloric/YouCompleteMe&apos;Plugin &apos;tpope/vim-fugitive&apos;Plugin &apos;rstacruz/sparkup&apos;, {&apos;rtp&apos;: &apos;vim/&apos;}call vundle#end()            &quot; requiredfiletype plugin indent on    &quot; required</code></pre></li><li><p>��vim���װvundle</p><pre><code>cd ~vim +PluginInstall</code></pre></li><li><p>��װlibclang</p><pre><code>cd ~/.vim/bundle/YouCompleteMesudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev</code></pre></li><li><p>����libclang������ycm_core</p><pre><code>mkdir ~/.ycm_buildcd ~/.ycm_buildcmake -G &quot;Unix Makefiles&quot; -DUSE_SYSTEM_BOOST=ON -DEXTERNAL_LIBCLANG_PATH=/usr/lib/x86_64-linux-gnu/libclang-3.9.so . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cppcmake --build . --target ycm_core --config Release</code></pre></li><li><p>���ò����нű�</p><pre><code>cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/vim ~/.vimrclet g:ycm_server_python_interpreter=&apos;/usr/bin/python&apos;let g:ycm_global_ycm_extra_conf=&apos;~/.vim/.ycm_extra_conf.py&apos;cd ~/.vim/bundle/YouCompleteMe./install.py --clang-completer</code></pre></li></ol>]]></content>
       
       
         <tags>
             
-            <tag> t1 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>test_my_site</title>
-      <link href="/2018/03/29/test-my-site/"/>
-      <url>/2018/03/29/test-my-site/</url>
-      <content type="html"><![CDATA[<p>这一篇是。。<br><a id="more"></a></p><h1 id="哈哈哈哈哈"><a href="#哈哈哈哈哈" class="headerlink" title="哈哈哈哈哈"></a>哈哈哈哈哈</h1>]]></content>
-      
-      <categories>
-          
-          <category> b </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> t2 </tag>
-            
-            <tag> t1 </tag>
+            <tag> vim </tag>
             
         </tags>
       
