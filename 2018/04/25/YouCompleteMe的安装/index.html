@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="һ��YouCompleteMe���YouCompleteMeҲ����YCM����һ��֧�ֶ����ԵĴ����Զ���ȫ���������ϰ����vim��д������YCM����������߿���Ч�ʡ� ��������VirtualBox ubuntu 16.04 64-bit ������װ���� ��װgit sudo apt install git  ��githu">
+<meta name="description" content="YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。">
 <meta name="keywords" content="vim">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YouCompleteMe�İ�װ">
+<meta property="og:title" content="YouCompleteMe的安装">
 <meta property="og:url" content="http://yoursite.com/2018/04/25/YouCompleteMe的安装/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="һ��YouCompleteMe���YouCompleteMeҲ����YCM����һ��֧�ֶ����ԵĴ����Զ���ȫ���������ϰ����vim��д������YCM����������߿���Ч�ʡ� ��������VirtualBox ubuntu 16.04 64-bit ������װ���� ��װgit sudo apt install git  ��githu">
+<meta property="og:description" content="YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-25T14:40:11.781Z">
+<meta property="og:updated_time" content="2018-04-25T14:43:28.439Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YouCompleteMe�İ�װ">
-<meta name="twitter:description" content="һ��YouCompleteMe���YouCompleteMeҲ����YCM����һ��֧�ֶ����ԵĴ����Զ���ȫ���������ϰ����vim��д������YCM����������߿���Ч�ʡ� ��������VirtualBox ubuntu 16.04 64-bit ������װ���� ��װgit sudo apt install git  ��githu">
+<meta name="twitter:title" content="YouCompleteMe的安装">
+<meta name="twitter:description" content="YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。">
 
 
 
@@ -129,7 +129,7 @@
 
 
 
-  <title>YouCompleteMe�İ�װ | Hubbard Huang</title>
+  <title>YouCompleteMe的安装 | Hubbard Huang</title>
   
 
 
@@ -309,7 +309,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">YouCompleteMe�İ�װ</h1>
+          <h1 class="post-title" itemprop="name headline">YouCompleteMe的安装</h1>
         
 
         <div class="post-meta">
@@ -359,16 +359,16 @@
       
 
       
-        <h2 id="һ��YouCompleteMe���"><a href="#һ��YouCompleteMe���" class="headerlink" title="һ��YouCompleteMe���"></a>һ��YouCompleteMe���</h2><p>YouCompleteMeҲ����YCM����һ��֧�ֶ����ԵĴ����Զ���ȫ���������ϰ����vim��д������YCM����������߿���Ч�ʡ�</p>
-<h2 id="��������"><a href="#��������" class="headerlink" title="��������"></a>��������</h2><p>VirtualBox ubuntu 16.04 64-bit</p>
-<h2 id="������װ����"><a href="#������װ����" class="headerlink" title="������װ����"></a>������װ����</h2><ol>
-<li><p>��װgit</p>
+        <p>YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。<br><a id="more"></a></p>
+<h2 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h2><p>VirtualBox ubuntu 16.04 64-bit</p>
+<h2 id="二、安装过程"><a href="#二、安装过程" class="headerlink" title="二、安装过程"></a>二、安装过程</h2><ol>
+<li><p>安装git</p>
 <pre><code>sudo apt install git
 </code></pre></li>
-<li><p>��github��ȡVundle.vimԴ�ļ�</p>
+<li><p>从github获取Vundle.vim源文件</p>
 <pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 </code></pre></li>
-<li><p>��~/.vimrcд��vundle�İ�װ����</p>
+<li><p>往~/.vimrc写进vundle的安装配置</p>
 <pre><code>vim ~/.vimrc
 
 set nocompatible              &quot; be iMproved, required
@@ -382,15 +382,15 @@ Plugin &apos;rstacruz/sparkup&apos;, {&apos;rtp&apos;: &apos;vim/&apos;}
 call vundle#end()            &quot; required
 filetype plugin indent on    &quot; required
 </code></pre></li>
-<li><p>��vim���װvundle</p>
+<li><p>用vim命令安装vundle</p>
 <pre><code>cd ~
 vim +PluginInstall
 </code></pre></li>
-<li><p>��װlibclang</p>
+<li><p>安装libclang</p>
 <pre><code>cd ~/.vim/bundle/YouCompleteMe
 sudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev
 </code></pre></li>
-<li><p>����libclang������ycm_core</p>
+<li><p>编译libclang，构建ycm_core</p>
 <pre><code>mkdir ~/.ycm_build
 cd ~/.ycm_build
 
@@ -398,7 +398,7 @@ cmake -G &quot;Unix Makefiles&quot; -DUSE_SYSTEM_BOOST=ON -DEXTERNAL_LIBCLANG_PA
 
 cmake --build . --target ycm_core --config Release
 </code></pre></li>
-<li><p>���ò����нű�</p>
+<li><p>配置并运行脚本</p>
 <pre><code>cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/
 
 vim ~/.vimrc
@@ -626,7 +626,7 @@ cd ~/.vim/bundle/YouCompleteMe
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#һ��YouCompleteMe���"><span class="nav-number">1.</span> <span class="nav-text">һ��YouCompleteMe���</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#��������"><span class="nav-number">2.</span> <span class="nav-text">��������</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#������װ����"><span class="nav-number">3.</span> <span class="nav-text">������װ����</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、环境"><span class="nav-number">1.</span> <span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装过程"><span class="nav-number">2.</span> <span class="nav-text">二、安装过程</span></a></li></ol></div>
             
 
           </div>
