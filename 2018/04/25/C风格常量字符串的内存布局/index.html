@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="vim," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -82,18 +82,17 @@
 
 
 
-<meta name="description" content="YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。">
-<meta name="keywords" content="vim">
+<meta name="description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
 <meta property="og:type" content="article">
-<meta property="og:title" content="YouCompleteMe的安装">
-<meta property="og:url" content="http://yoursite.com/2018/04/25/YouCompleteMe的安装/index.html">
+<meta property="og:title" content="C������ַ������ڴ沼��">
+<meta property="og:url" content="http://yoursite.com/2018/04/25/C风格常量字符串的内存布局/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。">
+<meta property="og:description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-20T05:06:06.124Z">
+<meta property="og:updated_time" content="2018-07-05T09:01:44.634Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YouCompleteMe的安装">
-<meta name="twitter:description" content="YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。">
+<meta name="twitter:title" content="C������ַ������ڴ沼��">
+<meta name="twitter:description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
 
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/25/YouCompleteMe的安装/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/25/C风格常量字符串的内存布局/"/>
 
 
 
 
 
-  <title>YouCompleteMe的安装 | Hubbard Huang</title>
+  <title>C������ַ������ڴ沼�� | Hubbard Huang</title>
   
 
 
@@ -292,7 +291,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/YouCompleteMe的安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/25/C风格常量字符串的内存布局/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄浩博">
@@ -309,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">YouCompleteMe的安装</h1>
+          <h1 class="post-title" itemprop="name headline">C������ַ������ڴ沼��</h1>
         
 
         <div class="post-meta">
@@ -344,8 +343,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux配置/" itemprop="url" rel="index">
-                    <span itemprop="name">linux配置</span>
+                  <a href="/categories/C-C/" itemprop="url" rel="index">
+                    <span itemprop="name">C\C++</span>
                   </a>
                 </span>
 
@@ -381,56 +380,15 @@
       
 
       
-        <p>YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。<br><a id="more"></a></p>
-<h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>VirtualBox ubuntu 16.04 64-bit</p>
-<h1 id="二、安装过程"><a href="#二、安装过程" class="headerlink" title="二、安装过程"></a>二、安装过程</h1><ol>
-<li><p>安装git</p>
-<pre><code>sudo apt install git
-</code></pre></li>
-<li><p>从github获取Vundle.vim源文件</p>
-<pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-</code></pre></li>
-<li><p>往~/.vimrc写进vundle的安装配置</p>
-<pre><code>vim ~/.vimrc
-
-set nocompatible              &quot; be iMproved, required
-filetype off                  &quot; required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin &apos;VundleVim/Vundle.vim&apos;
-Plugin &apos;Valloric/YouCompleteMe&apos;
-Plugin &apos;tpope/vim-fugitive&apos;
-Plugin &apos;rstacruz/sparkup&apos;, {&apos;rtp&apos;: &apos;vim/&apos;}
-call vundle#end()            &quot; required
-filetype plugin indent on    &quot; required
-</code></pre></li>
-<li><p>用vim命令安装vundle</p>
-<pre><code>cd ~
-vim +PluginInstall
-</code></pre></li>
-<li><p>安装libclang</p>
-<pre><code>cd ~/.vim/bundle/YouCompleteMe
-sudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev
-</code></pre></li>
-<li><p>编译libclang，构建ycm_core</p>
-<pre><code>mkdir ~/.ycm_build
-cd ~/.ycm_build
-
-cmake -G &quot;Unix Makefiles&quot; -DUSE_SYSTEM_BOOST=ON -DEXTERNAL_LIBCLANG_PATH=/usr/lib/x86_64-linux-gnu/libclang-3.9.so . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp
-
-cmake --build . --target ycm_core --config Release
-</code></pre></li>
-<li><p>配置并运行脚本</p>
-<pre><code>cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/
-
-vim ~/.vimrc
-let g:ycm_server_python_interpreter=&apos;/usr/bin/python&apos;
-let g:ycm_global_ycm_extra_conf=&apos;~/.vim/.ycm_extra_conf.py&apos;
-
-cd ~/.vim/bundle/YouCompleteMe
-./install.py --clang-completer
-</code></pre></li>
-</ol>
+        <p>������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�<br><a id="more"></a></p>
+<ul>
+<li>λ�ڳ��������ַ������ַ�����һ��������<code>&#39;\0&#39;</code>��β����һ������<code>strlen()</code>��ȡ�䴢�泤�ȡ�</li>
+<li><p>ʾ������</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; &quot;Test c-type string:&quot; &lt;&lt; endl;</span><br><span class="line">const char* s = &quot;abcdefghijklmnopq&quot;;</span><br><span class="line">cout &lt;&lt; &quot;strlen(s) = &quot; &lt;&lt; strlen(s) &lt;&lt; endl;</span><br><span class="line">for(int i = 0; i &lt;= strlen(s); i++)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;s[&quot; &lt;&lt; i &lt;&lt; &quot;]\t&quot; &lt;&lt; static_cast&lt;int&gt;(s[i]) &lt;&lt; &quot;\t&quot; &lt;&lt; s[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>���н��</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Test c-type string:</span><br><span class="line">strlen(s) = 17</span><br><span class="line">s[0]    97      a</span><br><span class="line">s[1]    98      b</span><br><span class="line">s[2]    99      c</span><br><span class="line">s[3]    100     d</span><br><span class="line">s[4]    101     e</span><br><span class="line">s[5]    102     f</span><br><span class="line">s[6]    103     g</span><br><span class="line">s[7]    104     h</span><br><span class="line">s[8]    105     i</span><br><span class="line">s[9]    106     j</span><br><span class="line">s[10]   107     k</span><br><span class="line">s[11]   108     l</span><br><span class="line">s[12]   109     m</span><br><span class="line">s[13]   110     n</span><br><span class="line">s[14]   111     o</span><br><span class="line">s[15]   112     p</span><br><span class="line">s[16]   113     q</span><br><span class="line">s[17]   0</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -463,12 +421,6 @@ cd ~/.vim/bundle/YouCompleteMe
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/vim/" rel="tag"># vim</a>
-          
-        </div>
-      
 
       
       
@@ -478,15 +430,15 @@ cd ~/.vim/bundle/YouCompleteMe
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/25/YouCompleteMe的安装/" rel="next" title="YouCompleteMe的安装">
+                <i class="fa fa-chevron-left"></i> YouCompleteMe的安装
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/25/C风格常量字符串的内存布局/" rel="prev" title="C������ַ������ڴ沼��">
-                C������ַ������ڴ沼�� <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -554,17 +506,8 @@ cd ~/.vim/bundle/YouCompleteMe
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -638,22 +581,6 @@ cd ~/.vim/bundle/YouCompleteMe
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、环境"><span class="nav-text">一、环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、安装过程"><span class="nav-text">二、安装过程</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

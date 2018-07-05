@@ -3,6 +3,21 @@
   
     
     <entry>
+      <title>C������ַ������ڴ沼��</title>
+      <link href="/2018/04/25/C%E9%A3%8E%E6%A0%BC%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/"/>
+      <url>/2018/04/25/C%E9%A3%8E%E6%A0%BC%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</url>
+      <content type="html"><![CDATA[<p>������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�<br><a id="more"></a></p><ul><li>λ�ڳ��������ַ������ַ�����һ��������<code>&#39;\0&#39;</code>��β����һ������<code>strlen()</code>��ȡ�䴢�泤�ȡ�</li><li><p>ʾ������</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; &quot;Test c-type string:&quot; &lt;&lt; endl;</span><br><span class="line">const char* s = &quot;abcdefghijklmnopq&quot;;</span><br><span class="line">cout &lt;&lt; &quot;strlen(s) = &quot; &lt;&lt; strlen(s) &lt;&lt; endl;</span><br><span class="line">for(int i = 0; i &lt;= strlen(s); i++)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;s[&quot; &lt;&lt; i &lt;&lt; &quot;]\t&quot; &lt;&lt; static_cast&lt;int&gt;(s[i]) &lt;&lt; &quot;\t&quot; &lt;&lt; s[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>���н��</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Test c-type string:</span><br><span class="line">strlen(s) = 17</span><br><span class="line">s[0]    97      a</span><br><span class="line">s[1]    98      b</span><br><span class="line">s[2]    99      c</span><br><span class="line">s[3]    100     d</span><br><span class="line">s[4]    101     e</span><br><span class="line">s[5]    102     f</span><br><span class="line">s[6]    103     g</span><br><span class="line">s[7]    104     h</span><br><span class="line">s[8]    105     i</span><br><span class="line">s[9]    106     j</span><br><span class="line">s[10]   107     k</span><br><span class="line">s[11]   108     l</span><br><span class="line">s[12]   109     m</span><br><span class="line">s[13]   110     n</span><br><span class="line">s[14]   111     o</span><br><span class="line">s[15]   112     p</span><br><span class="line">s[16]   113     q</span><br><span class="line">s[17]   0</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      <categories>
+          
+          <category> C\C++ </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>YouCompleteMe的安装</title>
       <link href="/2018/04/25/YouCompleteMe%E7%9A%84%E5%AE%89%E8%A3%85/"/>
       <url>/2018/04/25/YouCompleteMe%E7%9A%84%E5%AE%89%E8%A3%85/</url>
