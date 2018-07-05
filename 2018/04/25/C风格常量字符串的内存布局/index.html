@@ -82,17 +82,17 @@
 
 
 
-<meta name="description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
+<meta name="description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C风格常量字符串的内存布局">
+<meta property="og:title" content="C������ַ������ڴ沼��">
 <meta property="og:url" content="http://yoursite.com/2018/04/25/C风格常量字符串的内存布局/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
+<meta property="og:description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-05T09:06:29.756Z">
+<meta property="og:updated_time" content="2018-07-05T09:26:39.417Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C风格常量字符串的内存布局">
-<meta name="twitter:description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
+<meta name="twitter:title" content="C������ַ������ڴ沼��">
+<meta name="twitter:description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>C风格常量字符串的内存布局 | Hubbard Huang</title>
+  <title>C������ַ������ڴ沼�� | Hubbard Huang</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C风格常量字符串的内存布局</h1>
+          <h1 class="post-title" itemprop="name headline">C������ַ������ڴ沼��</h1>
         
 
         <div class="post-meta">
@@ -380,16 +380,38 @@
       
 
       
-        <p>笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。<br><a id="more"></a></p>
-<ul>
-<li>位于常量区的字符串跟字符数组一样都是以<code>&#39;\0&#39;</code>结尾，故一样可用<code>strlen()</code>获取其储存长度。</li>
-<li><p>示例程序</p>
-  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"Test c-type string:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* s = <span class="string">"abcdefghijklmnopq"</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"strlen(s) = "</span> &lt;&lt; <span class="built_in">strlen</span>(s) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="built_in">strlen</span>(s); i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"s["</span> &lt;&lt; i &lt;&lt; <span class="string">"]\t"</span> &lt;&lt; <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(s[i]) &lt;&lt; <span class="string">"\t"</span> &lt;&lt; s[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>运行结果</p>
- <figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Test c-type string:</span><br><span class="line">strlen(s) = <span class="number">17</span></span><br><span class="line">s<span class="string">[0]</span>    <span class="number">97</span>      a</span><br><span class="line">s<span class="string">[1]</span>    <span class="number">98</span>      b</span><br><span class="line">s<span class="string">[2]</span>    <span class="number">99</span>      c</span><br><span class="line">s<span class="string">[3]</span>    <span class="number">100</span>     d</span><br><span class="line">s<span class="string">[4]</span>    <span class="number">101</span>     e</span><br><span class="line">s<span class="string">[5]</span>    <span class="number">102</span>     f</span><br><span class="line">s<span class="string">[6]</span>    <span class="number">103</span>     g</span><br><span class="line">s<span class="string">[7]</span>    <span class="number">104</span>     h</span><br><span class="line">s<span class="string">[8]</span>    <span class="number">105</span>     i</span><br><span class="line">s<span class="string">[9]</span>    <span class="number">106</span>     j</span><br><span class="line">s<span class="string">[10]</span>   <span class="number">107</span>     k</span><br><span class="line">s<span class="string">[11]</span>   <span class="number">108</span>     l</span><br><span class="line">s<span class="string">[12]</span>   <span class="number">109</span>     m</span><br><span class="line">s<span class="string">[13]</span>   <span class="number">110</span>     n</span><br><span class="line">s<span class="string">[14]</span>   <span class="number">111</span>     o</span><br><span class="line">s<span class="string">[15]</span>   <span class="number">112</span>     p</span><br><span class="line">s<span class="string">[16]</span>   <span class="number">113</span>     q</span><br><span class="line">s<span class="string">[17]</span>   <span class="number">0</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-
+        <p>������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�<br><a id="more"></a></p>
+<h1 id="һ������"><a href="#һ������" class="headerlink" title="һ������"></a>һ������</h1><p>λ�ڳ��������ַ������ַ�����һ��������<code>&#39;\0&#39;</code>��β����һ������<code>strlen()</code>��ȡ�䴢�泤�ȡ�</p>
+<h1 id="����֤��"><a href="#����֤��" class="headerlink" title="����֤��"></a>����֤��</h1><p>����</p>
+<pre><code>cout &lt;&lt; &quot;Test c-type string:&quot; &lt;&lt; endl;
+const char* s = &quot;abcdefghijklmnopq&quot;;
+cout &lt;&lt; &quot;strlen(s) = &quot; &lt;&lt; strlen(s) &lt;&lt; endl;
+for(int i = 0; i &lt;= strlen(s); i++)
+{
+    cout &lt;&lt; &quot;s[&quot; &lt;&lt; i &lt;&lt; &quot;]\t&quot; &lt;&lt; static_cast&lt;int&gt;(s[i]) &lt;&lt; &quot;\t&quot; &lt;&lt; s[i] &lt;&lt; endl;
+}
+</code></pre><p>���н����</p>
+<pre><code>Test c-type string:
+strlen(s) = 17
+s[0]    97      a
+s[1]    98      b
+s[2]    99      c
+s[3]    100     d
+s[4]    101     e
+s[5]    102     f
+s[6]    103     g
+s[7]    104     h
+s[8]    105     i
+s[9]    106     j
+s[10]   107     k
+s[11]   108     l
+s[12]   109     m
+s[13]   110     n
+s[14]   111     o
+s[15]   112     p
+s[16]   113     q
+s[17]   0
+</code></pre>
       
     </div>
     
@@ -506,8 +528,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -581,6 +612,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#һ������"><span class="nav-text">һ������</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#����֤��"><span class="nav-text">����֤��</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
