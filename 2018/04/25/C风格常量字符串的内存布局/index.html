@@ -82,17 +82,17 @@
 
 
 
-<meta name="description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
+<meta name="description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C������ַ������ڴ沼��">
+<meta property="og:title" content="C风格常量字符串的内存布局">
 <meta property="og:url" content="http://yoursite.com/2018/04/25/C风格常量字符串的内存布局/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
+<meta property="og:description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-05T09:01:44.634Z">
+<meta property="og:updated_time" content="2018-07-05T09:06:29.756Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C������ַ������ڴ沼��">
-<meta name="twitter:description" content="������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�">
+<meta name="twitter:title" content="C风格常量字符串的内存布局">
+<meta name="twitter:description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
 
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <title>C������ַ������ڴ沼�� | Hubbard Huang</title>
+  <title>C风格常量字符串的内存布局 | Hubbard Huang</title>
   
 
 
@@ -308,7 +308,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C������ַ������ڴ沼��</h1>
+          <h1 class="post-title" itemprop="name headline">C风格常量字符串的内存布局</h1>
         
 
         <div class="post-meta">
@@ -380,13 +380,13 @@
       
 
       
-        <p>������һ����ΪC������ַ������ַ������кܴ�Ĳ�����дһ�β��Գ����֪����������ʵ�ǳ����ơ�<br><a id="more"></a></p>
+        <p>笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。<br><a id="more"></a></p>
 <ul>
-<li>λ�ڳ��������ַ������ַ�����һ��������<code>&#39;\0&#39;</code>��β����һ������<code>strlen()</code>��ȡ�䴢�泤�ȡ�</li>
-<li><p>ʾ������</p>
+<li>位于常量区的字符串跟字符数组一样都是以<code>&#39;\0&#39;</code>结尾，故一样可用<code>strlen()</code>获取其储存长度。</li>
+<li><p>示例程序</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; &quot;Test c-type string:&quot; &lt;&lt; endl;</span><br><span class="line">const char* s = &quot;abcdefghijklmnopq&quot;;</span><br><span class="line">cout &lt;&lt; &quot;strlen(s) = &quot; &lt;&lt; strlen(s) &lt;&lt; endl;</span><br><span class="line">for(int i = 0; i &lt;= strlen(s); i++)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;s[&quot; &lt;&lt; i &lt;&lt; &quot;]\t&quot; &lt;&lt; static_cast&lt;int&gt;(s[i]) &lt;&lt; &quot;\t&quot; &lt;&lt; s[i] &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>���н��</p>
+<li><p>运行结果</p>
  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Test c-type string:</span><br><span class="line">strlen(s) = 17</span><br><span class="line">s[0]    97      a</span><br><span class="line">s[1]    98      b</span><br><span class="line">s[2]    99      c</span><br><span class="line">s[3]    100     d</span><br><span class="line">s[4]    101     e</span><br><span class="line">s[5]    102     f</span><br><span class="line">s[6]    103     g</span><br><span class="line">s[7]    104     h</span><br><span class="line">s[8]    105     i</span><br><span class="line">s[9]    106     j</span><br><span class="line">s[10]   107     k</span><br><span class="line">s[11]   108     l</span><br><span class="line">s[12]   109     m</span><br><span class="line">s[13]   110     n</span><br><span class="line">s[14]   111     o</span><br><span class="line">s[15]   112     p</span><br><span class="line">s[16]   113     q</span><br><span class="line">s[17]   0</span><br></pre></td></tr></table></figure></li>
 </ul>
 
