@@ -89,7 +89,7 @@
 <meta property="og:site_name" content="Hubbard Huang">
 <meta property="og:description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-05T09:28:18.679Z">
+<meta property="og:updated_time" content="2018-07-05T09:32:32.537Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C风格常量字符串的内存布局">
 <meta name="twitter:description" content="笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。">
@@ -382,36 +382,8 @@
       
         <p>笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。<br><a id="more"></a></p>
 <h1 id="一、阐述"><a href="#一、阐述" class="headerlink" title="一、阐述"></a>一、阐述</h1><p>位于常量区的字符串跟字符数组一样都是以<code>&#39;\0&#39;</code>结尾，故一样可用<code>strlen()</code>获取其储存长度。</p>
-<h1 id="二、证明"><a href="#二、证明" class="headerlink" title="二、证明"></a>二、证明</h1><p>程序：</p>
-<pre><code>cout &lt;&lt; &quot;Test c-type string:&quot; &lt;&lt; endl;
-const char* s = &quot;abcdefghijklmnopq&quot;;
-cout &lt;&lt; &quot;strlen(s) = &quot; &lt;&lt; strlen(s) &lt;&lt; endl;
-for(int i = 0; i &lt;= strlen(s); i++)
-{
-    cout &lt;&lt; &quot;s[&quot; &lt;&lt; i &lt;&lt; &quot;]\t&quot; &lt;&lt; static_cast&lt;int&gt;(s[i]) &lt;&lt; &quot;\t&quot; &lt;&lt; s[i] &lt;&lt; endl;
-}
-</code></pre><p>运行结果：</p>
-<pre><code>Test c-type string:
-strlen(s) = 17
-s[0]    97      a
-s[1]    98      b
-s[2]    99      c
-s[3]    100     d
-s[4]    101     e
-s[5]    102     f
-s[6]    103     g
-s[7]    104     h
-s[8]    105     i
-s[9]    106     j
-s[10]   107     k
-s[11]   108     l
-s[12]   109     m
-s[13]   110     n
-s[14]   111     o
-s[15]   112     p
-s[16]   113     q
-s[17]   0
-</code></pre>
+<h1 id="二、证明"><a href="#二、证明" class="headerlink" title="二、证明"></a>二、证明</h1><p>程序：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"Test c-type string:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* s = <span class="string">"abcdefghijklmnopq"</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"strlen(s) = "</span> &lt;&lt; <span class="built_in">strlen</span>(s) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="built_in">strlen</span>(s); i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"s["</span> &lt;&lt; i &lt;&lt; <span class="string">"]\t"</span> &lt;&lt; <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(s[i]) &lt;&lt; <span class="string">"\t"</span> &lt;&lt; s[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line">运行结果：</span><br><span class="line">```    </span><br><span class="line">Test c-type <span class="built_in">string</span>:</span><br><span class="line"><span class="built_in">strlen</span>(s) = <span class="number">17</span></span><br><span class="line">s[<span class="number">0</span>]    <span class="number">97</span>      a</span><br><span class="line">s[<span class="number">1</span>]    <span class="number">98</span>      b</span><br><span class="line">s[<span class="number">2</span>]    <span class="number">99</span>      c</span><br><span class="line">s[<span class="number">3</span>]    <span class="number">100</span>     d</span><br><span class="line">s[<span class="number">4</span>]    <span class="number">101</span>     e</span><br><span class="line">s[<span class="number">5</span>]    <span class="number">102</span>     f</span><br><span class="line">s[<span class="number">6</span>]    <span class="number">103</span>     g</span><br><span class="line">s[<span class="number">7</span>]    <span class="number">104</span>     h</span><br><span class="line">s[<span class="number">8</span>]    <span class="number">105</span>     i</span><br><span class="line">s[<span class="number">9</span>]    <span class="number">106</span>     j</span><br><span class="line">s[<span class="number">10</span>]   <span class="number">107</span>     k</span><br><span class="line">s[<span class="number">11</span>]   <span class="number">108</span>     l</span><br><span class="line">s[<span class="number">12</span>]   <span class="number">109</span>     m</span><br><span class="line">s[<span class="number">13</span>]   <span class="number">110</span>     n</span><br><span class="line">s[<span class="number">14</span>]   <span class="number">111</span>     o</span><br><span class="line">s[<span class="number">15</span>]   <span class="number">112</span>     p</span><br><span class="line">s[<span class="number">16</span>]   <span class="number">113</span>     q</span><br><span class="line">s[<span class="number">17</span>]   <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -452,15 +424,15 @@ s[17]   0
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/25/YouCompleteMe的安装/" rel="next" title="YouCompleteMe的安装">
+                <i class="fa fa-chevron-left"></i> YouCompleteMe的安装
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/25/YouCompleteMe的安装/" rel="prev" title="YouCompleteMe的安装">
-                YouCompleteMe的安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
