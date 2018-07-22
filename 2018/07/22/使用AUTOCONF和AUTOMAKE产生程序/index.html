@@ -82,17 +82,17 @@
 
 
 
-<meta name="description" content="一、执行步骤123./configuremakemake install 二、命令详解(一) ./configure configure是一个shell脚本，运行后可以产生利于源程序在不同平台上被方便地编译、链接地Makefile文件。 可以使用命令./configure --help 查看参数对应的功能。 configure所产生的Makefile文件有几个预设的目标可供使用，其中几个重要的简">
+<meta name="description" content="这篇文章是对./configure，make，make install三把斧的粗略讲解。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用AUTOCONF和AUTOMAKE产生程序">
 <meta property="og:url" content="http://yoursite.com/2018/07/22/使用AUTOCONF和AUTOMAKE产生程序/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="一、执行步骤123./configuremakemake install 二、命令详解(一) ./configure configure是一个shell脚本，运行后可以产生利于源程序在不同平台上被方便地编译、链接地Makefile文件。 可以使用命令./configure --help 查看参数对应的功能。 configure所产生的Makefile文件有几个预设的目标可供使用，其中几个重要的简">
+<meta property="og:description" content="这篇文章是对./configure，make，make install三把斧的粗略讲解。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-22T10:09:14.412Z">
+<meta property="og:updated_time" content="2018-07-22T11:21:06.563Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用AUTOCONF和AUTOMAKE产生程序">
-<meta name="twitter:description" content="一、执行步骤123./configuremakemake install 二、命令详解(一) ./configure configure是一个shell脚本，运行后可以产生利于源程序在不同平台上被方便地编译、链接地Makefile文件。 可以使用命令./configure --help 查看参数对应的功能。 configure所产生的Makefile文件有几个预设的目标可供使用，其中几个重要的简">
+<meta name="twitter:description" content="这篇文章是对./configure，make，make install三把斧的粗略讲解。">
 
 
 
@@ -380,7 +380,7 @@
       
 
       
-        <a id="more"></a>
+        <p>这篇文章是对./configure，make，make install三把斧的粗略讲解。<br><a id="more"></a></p>
 <h1 id="一、执行步骤"><a href="#一、执行步骤" class="headerlink" title="一、执行步骤"></a>一、执行步骤</h1><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line"><span class="built_in">make</span></span><br><span class="line"><span class="built_in">make</span> install</span><br></pre></td></tr></table></figure>
 <h1 id="二、命令详解"><a href="#二、命令详解" class="headerlink" title="二、命令详解"></a>二、命令详解</h1><h2 id="一-configure"><a href="#一-configure" class="headerlink" title="(一) ./configure"></a>(一) ./configure</h2><ul>
 <li>configure是一个shell脚本，运行后可以产生利于源程序在不同平台上被方便地编译、链接地Makefile文件。</li>
@@ -389,10 +389,12 @@
 <li>make clean：<br>清除编译产生的可执行文件及目标文件(object file，*.o)。</li>
 <li>make distclean：<br>除了清除可执行文件和目标文件外，把configure所产生的Makefile也清除掉。</li>
 <li>make dist：<br>将程序和相关的档案包装成一个压缩文件以供发布。</li>
-<li>make distcheck：<br>和make dist类似，但是加入检查包装后的压缩文件是否正常。这个目标除了把程序和相关文件包装成tar.gz文件外，还会自动把这个压缩文件解开，执行 configure，并且进行make all 的动作，确认编译无误后，会显示这个tar.gz文件可供发布了。这个检查非常有用，检查过关的包，基本上可以给任何一个具备GNU开发环境-的人去重新编译。<h2 id="二-make"><a href="#二-make" class="headerlink" title="(二) make"></a>(二) make</h2>根据Makefile的指定要求对源程序进行编译。<h2 id="三-make-install"><a href="#三-make-install" class="headerlink" title="(三) make install"></a>(三) make install</h2>将二进制执行文件（包括静态链接库和动态链接库）安装在Makefile的指定安装路径。</li>
+<li>make distcheck：<br>和make dist类似，但是加入检查包装后的压缩文件是否正常。这个目标除了把程序和相关文件包装成tar.gz文件外，还会自动把这个压缩文件解开，执行 configure，并且进行make all 的动作，确认编译无误后，会显示这个tar.gz文件可供发布了。这个检查非常有用，检查过关的包，基本上可以给任何一个具备GNU开发环境-的人去重新编译。</li>
 </ul>
 </li>
 </ul>
+<h2 id="二-make"><a href="#二-make" class="headerlink" title="(二) make"></a>(二) make</h2><p>根据Makefile的指定要求对源程序进行编译。</p>
+<h2 id="三-make-install"><a href="#三-make-install" class="headerlink" title="(三) make install"></a>(三) make install</h2><p>将二进制执行文件（包括静态链接库和动态链接库）安装在Makefile的指定安装路径。</p>
 
       
     </div>
