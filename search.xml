@@ -2,6 +2,15 @@
 <search> 
   
     
+    <entry>
+      <title>关于deb包</title>
+      <link href="/2018/07/23/%E5%85%B3%E4%BA%8Edeb%E5%8C%85/"/>
+      <url>/2018/07/23/%E5%85%B3%E4%BA%8Edeb%E5%8C%85/</url>
+      <content type="html"><![CDATA[<p>如果一个要安装的软件包是deb包，那么它的安装和删除操作将会十分简单，两者都只需要通过运行一条dpkg命令即可完成。<br><a id="more"></a></p><h1 id="一、用checkinstall将源码转换成deb包"><a href="#一、用checkinstall将源码转换成deb包" class="headerlink" title="一、用checkinstall将源码转换成deb包"></a>一、用checkinstall将源码转换成deb包</h1><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">./configure</span></span><br><span class="line">make</span><br><span class="line">sudo checkinstall</span><br><span class="line"><span class="string">...</span><span class="params">(根据提示操作)</span></span><br></pre></td></tr></table></figure><h1 id="二、用dpkg命令管理deb包"><a href="#二、用dpkg命令管理deb包" class="headerlink" title="二、用dpkg命令管理deb包"></a>二、用dpkg命令管理deb包</h1><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i <span class="keyword">package</span>.deb         <span class="meta">#安装包</span></span><br><span class="line">dpkg -r <span class="keyword">package</span>             <span class="meta">#删除包</span></span><br><span class="line">dpkg -P <span class="keyword">package</span>             <span class="meta">#删除包（包括配置文件）</span></span><br><span class="line">dpkg -L <span class="keyword">package</span>             <span class="meta">#列出与该包关联的文件及其路径</span></span><br><span class="line">dpkg -l <span class="keyword">package</span>             <span class="meta">#显示该包的版本</span></span><br><span class="line">dpkg --unpack <span class="keyword">package</span>.deb   <span class="meta">#解开deb包的内容</span></span><br><span class="line">dpkg -S keyword             <span class="meta">#搜索所属的包内容</span></span><br><span class="line">dpkg -l                     <span class="meta">#列出当前已安装的包</span></span><br><span class="line">dpkg -c <span class="keyword">package</span>.deb         <span class="meta">#列出deb包的内容</span></span><br><span class="line">dpkg --configure <span class="keyword">package</span>    <span class="meta">#配置包</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+    </entry>
+    
   
   
 </search>
