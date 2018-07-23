@@ -2,57 +2,6 @@
 <search> 
   
     
-    <entry>
-      <title>使用AUTOCONF和AUTOMAKE产生程序</title>
-      <link href="/2018/07/23/%E4%BD%BF%E7%94%A8AUTOCONF%E5%92%8CAUTOMAKE%E4%BA%A7%E7%94%9F%E7%A8%8B%E5%BA%8F/"/>
-      <url>/2018/07/23/%E4%BD%BF%E7%94%A8AUTOCONF%E5%92%8CAUTOMAKE%E4%BA%A7%E7%94%9F%E7%A8%8B%E5%BA%8F/</url>
-      <content type="html"><![CDATA[<p>本文是对./configure，make，make install三板斧的粗略描述。<br><a id="more"></a></p><h1 id="一、执行步骤"><a href="#一、执行步骤" class="headerlink" title="一、执行步骤"></a>一、执行步骤</h1><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line"><span class="built_in">make</span></span><br><span class="line"><span class="built_in">make</span> install</span><br></pre></td></tr></table></figure><h1 id="二、命令详解"><a href="#二、命令详解" class="headerlink" title="二、命令详解"></a>二、命令详解</h1><h2 id="一-configure"><a href="#一-configure" class="headerlink" title="(一) ./configure"></a>(一) ./configure</h2><ol><li>configure是一个shell脚本，运行后可以产生利于源程序在不同平台上被方便地编译、链接地Makefile文件。</li><li>可以使用命令<code>./configure --help</code> 查看参数对应的功能。</li><li>configure所产生的Makefile文件有几个预设的目标可供使用，其中几个重要的简述如下。<br>make clean：清除编译产生的可执行文件及目标文件(object file，*.o)。<br>make distclean：除了清除可执行文件和目标文件外，把configure所产生的Makefile也清除掉。<br>make dist：将程序和相关的档案包装成一个压缩文件以供发布。<br>make distcheck：和make dist类似，但是加入检查包装后的压缩文件是否正常。这个目标除了把程序和相关文件包装成tar.gz文件外，还会自动把这个压缩文件解开，执行 configure，并且进行make all 的动作，确认编译无误后，会显示这个tar.gz文件可供发布了。这个检查非常有用，检查过关的包，基本上可以给任何一个具备GNU开发环境-的人去重新编译。</li></ol><h2 id="二-make"><a href="#二-make" class="headerlink" title="(二) make"></a>(二) make</h2><p>根据Makefile的指定要求对源程序进行编译。</p><h2 id="三-make-install"><a href="#三-make-install" class="headerlink" title="(三) make install"></a>(三) make install</h2><p>将二进制执行文件（包括静态链接库和动态链接库）安装在Makefile的指定安装路径。</p>]]></content>
-      
-      <categories>
-          
-          <category> Linux操作 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    <entry>
-      <title>C风格常量字符串的内存布局</title>
-      <link href="/2018/07/03/C%E9%A3%8E%E6%A0%BC%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/"/>
-      <url>/2018/07/03/C%E9%A3%8E%E6%A0%BC%E5%B8%B8%E9%87%8F%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/</url>
-      <content type="html"><![CDATA[<p>笔者曾一度以为C风格常量字符串与字符数组有很大的差别，如今写一段测试程序才知道，两者其实非常相似。<br><a id="more"></a></p><h1 id="一、阐述"><a href="#一、阐述" class="headerlink" title="一、阐述"></a>一、阐述</h1><p>位于常量区的字符串跟字符数组一样都是以<code>&#39;\0&#39;</code>结尾，故一样可用<code>strlen()</code>获取其储存长度。</p><h1 id="二、证明"><a href="#二、证明" class="headerlink" title="二、证明"></a>二、证明</h1><p>程序：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"Test c-type string:"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span>* s = <span class="string">"abcdefghijklmnopq"</span>;</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; <span class="string">"strlen(s) = "</span> &lt;&lt; <span class="built_in">strlen</span>(s) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="built_in">strlen</span>(s); i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"s["</span> &lt;&lt; i &lt;&lt; <span class="string">"]\t"</span> &lt;&lt; <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(s[i]) &lt;&lt; <span class="string">"\t"</span> &lt;&lt; s[i] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p>运行结果：<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Test c-type string:</span><br><span class="line">strlen(s) = <span class="number">17</span></span><br><span class="line">s<span class="string">[0]</span>    <span class="number">97</span>      a</span><br><span class="line">s<span class="string">[1]</span>    <span class="number">98</span>      b</span><br><span class="line">s<span class="string">[2]</span>    <span class="number">99</span>      c</span><br><span class="line">s<span class="string">[3]</span>    <span class="number">100</span>     d</span><br><span class="line">s<span class="string">[4]</span>    <span class="number">101</span>     e</span><br><span class="line">s<span class="string">[5]</span>    <span class="number">102</span>     f</span><br><span class="line">s<span class="string">[6]</span>    <span class="number">103</span>     g</span><br><span class="line">s<span class="string">[7]</span>    <span class="number">104</span>     h</span><br><span class="line">s<span class="string">[8]</span>    <span class="number">105</span>     i</span><br><span class="line">s<span class="string">[9]</span>    <span class="number">106</span>     j</span><br><span class="line">s<span class="string">[10]</span>   <span class="number">107</span>     k</span><br><span class="line">s<span class="string">[11]</span>   <span class="number">108</span>     l</span><br><span class="line">s<span class="string">[12]</span>   <span class="number">109</span>     m</span><br><span class="line">s<span class="string">[13]</span>   <span class="number">110</span>     n</span><br><span class="line">s<span class="string">[14]</span>   <span class="number">111</span>     o</span><br><span class="line">s<span class="string">[15]</span>   <span class="number">112</span>     p</span><br><span class="line">s<span class="string">[16]</span>   <span class="number">113</span>     q</span><br><span class="line">s<span class="string">[17]</span>   <span class="number">0</span></span><br></pre></td></tr></table></figure></p>]]></content>
-      
-      <categories>
-          
-          <category> C/C++ </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    <entry>
-      <title>YouCompleteMe的安装</title>
-      <link href="/2018/04/25/YouCompleteMe%E7%9A%84%E5%AE%89%E8%A3%85/"/>
-      <url>/2018/04/25/YouCompleteMe%E7%9A%84%E5%AE%89%E8%A3%85/</url>
-      <content type="html"><![CDATA[<p>YouCompleteMe也称作YCM，是一款支持多语言的代码自动补全插件。笔者习惯用vim编写程序，有YCM相助定可提高开发效率。<br><a id="more"></a></p><h1 id="一、环境"><a href="#一、环境" class="headerlink" title="一、环境"></a>一、环境</h1><p>VirtualBox ubuntu 16.04 64-bit</p><h1 id="二、安装过程"><a href="#二、安装过程" class="headerlink" title="二、安装过程"></a>二、安装过程</h1><ol><li><p>安装git</p><pre><code>sudo apt install git</code></pre></li><li><p>从github获取Vundle.vim源文件</p><pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim</code></pre></li><li><p>往~/.vimrc写进vundle的安装配置</p><pre><code>vim ~/.vimrcset nocompatible              &quot; be iMproved, requiredfiletype off                  &quot; requiredset rtp+=~/.vim/bundle/Vundle.vimcall vundle#begin()Plugin &apos;VundleVim/Vundle.vim&apos;Plugin &apos;Valloric/YouCompleteMe&apos;Plugin &apos;tpope/vim-fugitive&apos;Plugin &apos;rstacruz/sparkup&apos;, {&apos;rtp&apos;: &apos;vim/&apos;}call vundle#end()            &quot; requiredfiletype plugin indent on    &quot; required</code></pre></li><li><p>用vim命令安装vundle</p><pre><code>cd ~vim +PluginInstall</code></pre></li><li><p>安装libclang</p><pre><code>cd ~/.vim/bundle/YouCompleteMesudo apt-get install llvm-3.9 clang-3.9 libclang-3.9-dev libboost-all-dev</code></pre></li><li><p>编译libclang，构建ycm_core</p><pre><code>mkdir ~/.ycm_buildcd ~/.ycm_buildcmake -G &quot;Unix Makefiles&quot; -DUSE_SYSTEM_BOOST=ON -DEXTERNAL_LIBCLANG_PATH=/usr/lib/x86_64-linux-gnu/libclang-3.9.so . ~/.vim/bundle/YouCompleteMe/third_party/ycmd/cppcmake --build . --target ycm_core --config Release</code></pre></li><li><p>配置并运行脚本</p><pre><code>cp ~/.vim/bundle/YouCompleteMe/third_party/ycmd/examples/.ycm_extra_conf.py ~/.vim/vim ~/.vimrclet g:ycm_server_python_interpreter=&apos;/usr/bin/python&apos;let g:ycm_global_ycm_extra_conf=&apos;~/.vim/.ycm_extra_conf.py&apos;cd ~/.vim/bundle/YouCompleteMe./install.py --clang-completer</code></pre></li></ol>]]></content>
-      
-      <categories>
-          
-          <category> linux配置 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> vim </tag>
-            
-        </tags>
-      
-    </entry>
-    
   
   
 </search>
