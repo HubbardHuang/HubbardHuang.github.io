@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/Ext2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%BB%E4%BD%93%E5%B8%83%E5%B1%803.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/Ext2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9D%97%E7%BB%84%E5%86%85%E5%B8%83%E5%B1%80.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/Ext2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9D%97%E7%BB%84%E5%86%85%E6%A8%A1%E5%9D%97%E7%AE%80%E4%BB%8B.png">
-<meta property="og:updated_time" content="2018-07-30T07:28:03.239Z">
+<meta property="og:updated_time" content="2018-07-30T09:31:23.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ext2 文件系统初探">
 <meta name="twitter:description" content="文件系统是在存储设备上组织文件的方法。Ext2 文件系统是 Linux 操作系统流行的文件系统之一。">
@@ -392,10 +392,10 @@
 <li>若干个 block 组成一个 block group，一个 block group 有多少个 block 是固定的。</li>
 </ol>
 <hr>
-<h1 id="三、Ext2-文件系统布局"><a href="#三、Ext2-文件系统布局" class="headerlink" title="三、Ext2 文件系统布局"></a><strong>三、Ext2 文件系统布局</strong></h1><h2 id="一-总体布局"><a href="#一-总体布局" class="headerlink" title="(一) 总体布局"></a>(一) 总体布局</h2><p><center><br><img src="http://pcny8g0ca.bkt.clouddn.com/Ext2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%BB%E4%BD%93%E5%B8%83%E5%B1%803.png" alt="总体布局示意图"><br><span style="color:gray; border-bottom: 1px solid #d9d9d9;
+<h1 id="三、Ext2-文件系统布局"><a href="#三、Ext2-文件系统布局" class="headerlink" title="三、Ext2 文件系统布局"></a><strong>三、Ext2 文件系统布局</strong></h1><h2 id="一-总体布局"><a href="#一-总体布局" class="headerlink" title="(一) 总体布局"></a>(一) 总体布局</h2><p><center><br><span style="color:gray; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
-    padding: 2px;">图 1. Ext2文件系统总体布局</span><br></center></p>
+    padding: 2px;">图 1. Ext2文件系统总体布局</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/Ext2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E6%80%BB%E4%BD%93%E5%B8%83%E5%B1%803.png" alt="总体布局示意图"><br></center></p>
 <h2 id="二-块组内布局及模块简介"><a href="#二-块组内布局及模块简介" class="headerlink" title="(二) 块组内布局及模块简介"></a>(二) 块组内布局及模块简介</h2><p><center><br><img src="http://pcny8g0ca.bkt.clouddn.com/Ext2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%9D%97%E7%BB%84%E5%86%85%E5%B8%83%E5%B1%80.png" alt="块组内布局"><br><span style="color:gray; border-bottom: 1px solid #d9d9d9;
     display: inline-block;
     color: #999;
