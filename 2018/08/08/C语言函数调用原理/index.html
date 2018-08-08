@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png">
-<meta property="og:updated_time" content="2018-08-08T03:18:57.417Z">
+<meta property="og:updated_time" content="2018-08-08T03:21:33.092Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hubbard Huang">
 <meta name="twitter:description" content="title: C/C++ 函数调用原理date: 2018-08-08 09:48:52tags:categories: 计算机底层  在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
@@ -367,31 +367,35 @@
 <hr>
 <p>在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。<br><a id="more"></a></p>
 <h1 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a><strong>一、预备知识</strong></h1><h2 id="一-内存中数据的地址"><a href="#一-内存中数据的地址" class="headerlink" title="(一) 内存中数据的地址"></a>(一) 内存中数据的地址</h2><p>地址在内存中存放时可能会跨越连续若干个存储单元（一个存储单元的大小为 1 个字节），而每个存储单元都有自己的编号，这个编号称为地址。机器规定以最小的编号作为该数据的地址。<br>请看以下代码和图 1。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uint8_t a = <span class="number">7</span><span class="comment">;</span></span><br><span class="line">uint16_t <span class="keyword">b </span>= <span class="number">500</span><span class="comment">;</span></span><br><span class="line">uint32_t c = <span class="number">1000</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
-<center><br><span style="color:gray">图 1. 内存中数据的地址</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png" alt="内存中数据的地址"><br></center><br>变量 a 占据编号为 24 的内存单元，变量 b 占据编号为 25~26 的内存单元，变量 c 占据编号为 27~30 的内存单元。<br>依据约定，变量 a，b，c 的地址分别为 24，25，27。<br>## (二) 堆（Heap）和堆栈（Stack）<br>1. 堆栈亦称为栈，能够在函数运行之前自动分配足够的空间资源，函数运行完毕后自动回收资源。<br>2. 堆的空间资源不同于栈，要获取它必须由程序员手动申请，然后由操作系统根据一定的算法进行分配。操作系统只有在进程结束时会自动回收该进程对应的堆空间资源，不过最好由程序员手动释放资源。<br><br>## (三) 代码段（Text Section）<br>每个函数经过编译生成的二进制机器指令皆存储在内存空间中的代码段。<br><br>## (四) 栈帧（Stack Frame）<br>上文提到，栈能够为函数运行分配足够的空间资源，这种资源便称为栈帧。<br><br>1. 栈帧的分配是从高地址向低地址逐步执行的。<br>2. 一个栈帧大小不是无限的，其最靠近低地址的一端称为栈顶，最接近高地址的一端称为栈底，<br>栈顶地址和栈底地址各自保存在专门的寄存器里边，这两个专门的寄存器存放的值都是地址，故亦可分别称之为<font color="red">栈顶指针</font>、<font color="red">栈底指针</font>。<br>一个栈帧栈底地址减去栈顶地址所得的值决定了该栈帧的大小，可以通过让栈顶指针自增与自减分别控制栈帧的缩小与扩大。<br>3. 一个函数栈帧的结构如图 2 所示（下文会提到返回地址），假设该函数局部变量个数不为 0，且有调用其他函数。<br><center><br><span style="color:gray">图 2. 单个函数栈帧的结构</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="单个函数栈帧的结构"><br></center>
-
+<p><center><br><span style="color:gray">图 1. 内存中数据的地址</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png" alt="内存中数据的地址"><br></center><br>变量 a 占据编号为 24 的内存单元，变量 b 占据编号为 25~26 的内存单元，变量 c 占据编号为 27~30 的内存单元。<br>依据约定，变量 a，b，c 的地址分别为 24，25，27。</p>
+<h2 id="二-堆（Heap）和堆栈（Stack）"><a href="#二-堆（Heap）和堆栈（Stack）" class="headerlink" title="(二) 堆（Heap）和堆栈（Stack）"></a>(二) 堆（Heap）和堆栈（Stack）</h2><ol>
+<li>堆栈亦称为栈，能够在函数运行之前自动分配足够的空间资源，函数运行完毕后自动回收资源。</li>
+<li>堆的空间资源不同于栈，要获取它必须由程序员手动申请，然后由操作系统根据一定的算法进行分配。操作系统只有在进程结束时会自动回收该进程对应的堆空间资源，不过最好由程序员手动释放资源。<h2 id="三-代码段（Text-Section）"><a href="#三-代码段（Text-Section）" class="headerlink" title="(三) 代码段（Text Section）"></a>(三) 代码段（Text Section）</h2>每个函数经过编译生成的二进制机器指令皆存储在内存空间中的代码段。<h2 id="四-栈帧（Stack-Frame）"><a href="#四-栈帧（Stack-Frame）" class="headerlink" title="(四) 栈帧（Stack Frame）"></a>(四) 栈帧（Stack Frame）</h2>上文提到，栈能够为函数运行分配足够的空间资源，这种资源便称为栈帧。</li>
+<li>栈帧的分配是从高地址向低地址逐步执行的。</li>
+<li>一个栈帧大小不是无限的，其最靠近低地址的一端称为栈顶，最接近高地址的一端称为栈底，<br>栈顶地址和栈底地址各自保存在专门的寄存器里边，这两个专门的寄存器存放的值都是地址，故亦可分别称之为<font color="red">栈顶指针</font>、<font color="red">栈底指针</font>。<br>一个栈帧栈底地址减去栈顶地址所得的值决定了该栈帧的大小，可以通过让栈顶指针自增与自减分别控制栈帧的缩小与扩大。</li>
+<li><p>一个函数栈帧的结构如图 2 所示（下文会提到返回地址），假设该函数局部变量个数不为 0，且有调用其他函数。<br><center><br><span style="color:gray">图 2. 单个函数栈帧的结构</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="单个函数栈帧的结构"><br></center></p>
 <h2 id="五-堆栈指针寄存器和基址指针寄存器"><a href="#五-堆栈指针寄存器和基址指针寄存器" class="headerlink" title="(五) 堆栈指针寄存器和基址指针寄存器"></a>(五) 堆栈指针寄存器和基址指针寄存器</h2><p>堆栈指针寄存器和基址指针寄存器都属于通用寄存器。</p>
-<ol>
-<li>堆栈指针寄存器用来存放栈帧的栈顶地址，根据数据位数不同可以分为三种，16位的 sp，32位的 esp，64位的 rsp，为说明方便，下文以 esp 为例进行阐述。</li>
-<li>基址指针寄存器用来存放栈帧的栈底地址，根据数据位数不同可以分为三种，16位的 bp，32位的 ebp，64位的 rbp，为说明方便，下文以 ebp 为例进行阐述。</li>
-</ol>
+</li>
+<li><p>堆栈指针寄存器用来存放栈帧的栈顶地址，根据数据位数不同可以分为三种，16位的 sp，32位的 esp，64位的 rsp，为说明方便，下文以 esp 为例进行阐述。</p>
+</li>
+<li><p>基址指针寄存器用来存放栈帧的栈底地址，根据数据位数不同可以分为三种，16位的 bp，32位的 ebp，64位的 rbp，为说明方便，下文以 ebp 为例进行阐述。</p>
 <h2 id="六-指令寄存器-ip"><a href="#六-指令寄存器-ip" class="headerlink" title="(六) 指令寄存器 ip"></a>(六) 指令寄存器 ip</h2><p>该寄存器总是存放<font color="red">下一条</font>执行指令的所在地址。</p>
 <h2 id="七-入栈指令-push-和出栈指令-pop"><a href="#七-入栈指令-push-和出栈指令-pop" class="headerlink" title="(七) 入栈指令 push 和出栈指令 pop"></a>(七) 入栈指令 push 和出栈指令 pop</h2><p>push 和 pop 都属于汇编指令。</p>
-<ol>
-<li>入栈操作分为两步。第一步栈顶指针自减以扩大栈帧空间；第二步，将某个寄存器的值保存新开辟的位置上。</li>
-<li>出栈操作只有一步。第一步，栈顶指针自增以缩小栈帧空间，将原先最靠近栈顶的值赋予某个寄存器。</li>
-<li>如图 3 所示。<center><br><span style="color:gray">图 3. 入栈指令 push 和出栈指令 pop</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png" alt="入栈指令 push 和出栈指令 pop"><br></center>
-
 </li>
-</ol>
+<li><p>入栈操作分为两步。第一步栈顶指针自减以扩大栈帧空间；第二步，将某个寄存器的值保存新开辟的位置上。</p>
+</li>
+<li>出栈操作只有一步。第一步，栈顶指针自增以缩小栈帧空间，将原先最靠近栈顶的值赋予某个寄存器。</li>
+<li><p>如图 3 所示。<br><center><br><span style="color:gray">图 3. 入栈指令 push 和出栈指令 pop</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png" alt="入栈指令 push 和出栈指令 pop"><br></center></p>
 <h2 id="八-函数调用指令-call"><a href="#八-函数调用指令-call" class="headerlink" title="(八) 函数调用指令 call"></a>(八) 函数调用指令 call</h2><p>call 也属于汇编指令。</p>
-<ol>
+</li>
 <li><p>调用一个函数时，一定会执行 call 指令，汇编中调用 printf 函数的写法如下。</p>
  <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> <span class="built_in">printf</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>call 指令包括两个步骤，第一步是让当前指令寄存器 ip 的值入栈，作为<font color="red">返回地址</font>，第二步是将指令寄存器 ip 的值修改为接下来即将调用的函数第一条机器指令的所在地址，从而实现跳转。</p>
+<h2 id="九-函数参数入栈顺序"><a href="#九-函数参数入栈顺序" class="headerlink" title="(九) 函数参数入栈顺序"></a>(九) 函数参数入栈顺序</h2><p>函数参数入栈顺序为从右到左。</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(<span class="number">1</span>, <span class="string">'A'</span>, <span class="number">3.14</span>)</span>;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="九-函数参数入栈顺序"><a href="#九-函数参数入栈顺序" class="headerlink" title="(九) 函数参数入栈顺序"></a>(九) 函数参数入栈顺序</h2><p>函数参数入栈顺序为从右到左。<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(<span class="number">1</span>, <span class="string">'A'</span>, <span class="number">3.14</span>)</span>;</span></span><br></pre></td></tr></table></figure></p>
 <p>该函数参数入栈顺序为 <code>3.14</code>，<code>&#39;A&#39;</code>，<code>1</code>。</p>
 <h2 id="十-不同函数的机器指令段的共性"><a href="#十-不同函数的机器指令段的共性" class="headerlink" title="(十) 不同函数的机器指令段的共性"></a>(十) 不同函数的机器指令段的共性</h2><p>每个函数的机器指令段的开头，都有以下几步操作：</p>
 <ol>
@@ -616,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、预备知识"><span class="nav-text">一、预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-内存中数据的地址"><span class="nav-text">(一) 内存中数据的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-堆栈指针寄存器和基址指针寄存器"><span class="nav-text">(五) 堆栈指针寄存器和基址指针寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-指令寄存器-ip"><span class="nav-text">(六) 指令寄存器 ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七-入栈指令-push-和出栈指令-pop"><span class="nav-text">(七) 入栈指令 push 和出栈指令 pop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八-函数调用指令-call"><span class="nav-text">(八) 函数调用指令 call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九-函数参数入栈顺序"><span class="nav-text">(九) 函数参数入栈顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十-不同函数的机器指令段的共性"><span class="nav-text">(十) 不同函数的机器指令段的共性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、C-C-函数调用过程剖解"><span class="nav-text">二、C/C++ 函数调用过程剖解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、预备知识"><span class="nav-text">一、预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-内存中数据的地址"><span class="nav-text">(一) 内存中数据的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-堆（Heap）和堆栈（Stack）"><span class="nav-text">(二) 堆（Heap）和堆栈（Stack）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-代码段（Text-Section）"><span class="nav-text">(三) 代码段（Text Section）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-栈帧（Stack-Frame）"><span class="nav-text">(四) 栈帧（Stack Frame）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五-堆栈指针寄存器和基址指针寄存器"><span class="nav-text">(五) 堆栈指针寄存器和基址指针寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六-指令寄存器-ip"><span class="nav-text">(六) 指令寄存器 ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七-入栈指令-push-和出栈指令-pop"><span class="nav-text">(七) 入栈指令 push 和出栈指令 pop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八-函数调用指令-call"><span class="nav-text">(八) 函数调用指令 call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九-函数参数入栈顺序"><span class="nav-text">(九) 函数参数入栈顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十-不同函数的机器指令段的共性"><span class="nav-text">(十) 不同函数的机器指令段的共性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、C-C-函数调用过程剖解"><span class="nav-text">二、C/C++ 函数调用过程剖解</span></a></li></ol></div>
             
 
           </div>
