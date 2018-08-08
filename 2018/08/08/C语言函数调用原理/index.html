@@ -82,20 +82,20 @@
 
 
 
-<meta name="description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
+<meta name="description" content="�� C/C++ �������õ������������ڴ�ռ������ʲô���������Ķ� C/C++ ��������ԭ����ж�Ҫ˵����">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C&#x2F;C++ 函数调用原理">
+<meta property="og:title" content="C&#x2F;C++ ��������ԭ��">
 <meta property="og:url" content="http://yoursite.com/2018/08/08/C语言函数调用原理/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
+<meta property="og:description" content="�� C/C++ �������õ������������ڴ�ռ������ʲô���������Ķ� C/C++ ��������ԭ����ж�Ҫ˵����">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png">
-<meta property="og:updated_time" content="2018-08-08T02:07:33.516Z">
+<meta property="og:updated_time" content="2018-08-08T02:14:30.227Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C&#x2F;C++ 函数调用原理">
-<meta name="twitter:description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
+<meta name="twitter:title" content="C&#x2F;C++ ��������ԭ��">
+<meta name="twitter:description" content="�� C/C++ �������õ������������ڴ�ռ������ʲô���������Ķ� C/C++ ��������ԭ����ж�Ҫ˵����">
 <meta name="twitter:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png">
 
 
@@ -132,7 +132,7 @@
 
 
 
-  <title>C/C++ 函数调用原理 | Hubbard Huang</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>C/C++ ��������ԭ�� | Hubbard Huang</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">C/C++ 函数调用原理</h1>
+          <h1 class="post-title" itemprop="name headline">C/C++ ��������ԭ��</h1>
         
 
         <div class="post-meta">
@@ -347,8 +347,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机底层/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机底层</span>
+                  <a href="/categories/������ײ�/" itemprop="url" rel="index">
+                    <span itemprop="name">������ײ�</span>
                   </a>
                 </span>
 
@@ -384,40 +384,43 @@
       
 
       
-        <p>在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。<br><a id="more"></a></p>
-<h1 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a><strong>一、预备知识</strong></h1><h2 id="一-内存中数据的地址"><a href="#一-内存中数据的地址" class="headerlink" title="(一) 内存中数据的地址"></a>(一) 内存中数据的地址</h2><p>地址在内存中存放时可能会跨越连续若干个存储单元（一个存储单元的大小为 1 个字节），而每个存储单元都有自己的编号，这个编号称为地址。机器规定以最小的编号作为该数据的地址。<br>请看以下代码和图 1。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uint8_t a = <span class="number">7</span><span class="comment">;</span></span><br><span class="line">uint16_t <span class="keyword">b </span>= <span class="number">500</span><span class="comment">;</span></span><br><span class="line">uint32_t c = <span class="number">1000</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
-<center><br><span style="color:gray">图 1. 内存中数据的地址</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png" alt="内存中数据的地址"><br></center><br>变量 a 占据编号为 24 的内存单元，变量 b 占据编号为 25~26 的内存单元，变量 c 占据编号为 27~30 的内存单元。<br>依据约定，变量 a，b，c 的地址分别为 24，25，27。<br><br>## (二) 堆（Heap）和堆栈（Stack）<br>1. 堆栈亦称为栈，能够在函数运行之前自动分配足够的空间资源，函数运行完毕后自动回收资源。<br>2. 堆的空间资源不同于栈，要获取它必须由程序员手动申请，然后由操作系统根据一定的算法进行分配。操作系统只有在进程结束时会自动回收该进程对应的堆空间资源，不过最好由程序员手动释放资源。<br><br>## (三) 代码段（Text Section）<br>每个函数经过编译生成的二进制机器指令皆存储在内存空间中的代码段。<br><br>## (四) 栈帧（Stack Frame）<br>上文提到，栈能够为函数运行分配足够的空间资源，这种资源便称为栈帧。<br><br>1. 栈帧的分配是从高地址向低地址逐步执行的。<br>2. 一个栈帧大小不是无限的，其最靠近低地址的一端称为栈顶，最接近高地址的一端称为栈底，<br>栈顶地址和栈底地址各自保存在专门的寄存器里边，这两个专门的寄存器存放的值都是地址，故亦可分别称之为<font color="red">栈顶指针</font>、<font color="red">栈底指针</font>。<br>一个栈帧栈底地址减去栈顶地址所得的值决定了该栈帧的大小，可以通过让栈顶指针自增与自减分别控制栈帧的缩小与扩大。<br>3. 一个函数栈帧的结构如图 2 所示（下文会提到返回地址），假设该函数局部变量个数不为 0，且有调用其他函数。<br><center><br><span style="color:gray">图 2. 单个函数栈帧的结构</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="单个函数栈帧的结构"><br><center><br><br>## (五) 堆栈指针寄存器和基址指针寄存器<br>堆栈指针寄存器和基址指针寄存器都属于通用寄存器。<br><br>1. 堆栈指针寄存器用来存放栈帧的栈顶地址，根据数据位数不同可以分为三种，16位的 sp，32位的 esp，64位的 rsp，为说明方便，下文以 esp 为例进行阐述。<br>2. 基址指针寄存器用来存放栈帧的栈底地址，根据数据位数不同可以分为三种，16位的 bp，32位的 ebp，64位的 rbp，为说明方便，下文以 ebp 为例进行阐述。<br><br>## (六) 指令寄存器 ip<br>该寄存器总是存放<font color="red">下一条</font>执行指令的所在地址。<br><br>## (七) 入栈指令 push 和出栈指令 pop<br>push 和 pop 都属于汇编指令。<br><br>1. 入栈操作分为两步。第一步栈顶指针自减以扩大栈帧空间；第二步，将某个寄存器的值保存新开辟的位置上。<br>2. 出栈操作只有一步。第一步，栈顶指针自增以缩小栈帧空间，将原先最靠近栈顶的值赋予某个寄存器。<br>3. 如图 3 所示。<br><center><br><span style="color:gray">图 3. 入栈指令 push 和出栈指令 pop</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png" alt="入栈指令 push 和出栈指令 pop"><br></center>
+        <p>�� C/C++ �������õ������������ڴ�ռ������ʲô���������Ķ� C/C++ ��������ԭ����ж�Ҫ˵����<br><a id="more"></a></p>
+<h1 id="һ��Ԥ��֪ʶ"><a href="#һ��Ԥ��֪ʶ" class="headerlink" title="һ��Ԥ��֪ʶ"></a><strong>һ��Ԥ��֪ʶ</strong></h1><h2 id="һ-�ڴ������ݵj�ַ"><a href="#һ-�ڴ������ݵj�ַ" class="headerlink" title="(һ) �ڴ������ݵĵ�ַ"></a>(һ) �ڴ������ݵĵ�ַ</h2><p>��ַ���ڴ��д��ʱ���ܻ��Խ������ɸ��洢��Ԫ��һ���洢��Ԫ�Ĵ�СΪ 1 ���ֽڣ�����ÿ���洢��Ԫ�����Լ��ı�ţ������ų�Ϊ��ַ�������涨����С�ı����Ϊ�����ݵĵ�ַ��<br>�뿴���´����ͼ 1��<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uint8_t a = <span class="number">7</span><span class="comment">;</span></span><br><span class="line">uint16_t <span class="keyword">b </span>= <span class="number">500</span><span class="comment">;</span></span><br><span class="line">uint32_t c = <span class="number">1000</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+<center><br><span style="color:gray">ͼ 1. �ڴ������ݵĵ�ַ</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png" alt="�ڴ������ݵĵ�ַ"><br></center><br>���� a ռ�ݱ��Ϊ 24 ���ڴ浥Ԫ������ b ռ�ݱ��Ϊ 25~26 ���ڴ浥Ԫ������ c ռ�ݱ��Ϊ 27~30 ���ڴ浥Ԫ��<br>����Լ�������� a��b��c �ĵ�ַ�ֱ�Ϊ 24��25��27��<br><br>—<br>## (��) �ѣ�Heap���Ͷ�ջ��Stack��<br>1. ��ջ���Ϊջ���ܹ��ں�������֮ǰ�Զ������㹻�Ŀռ���Դ������������Ϻ��Զ�������Դ��<br>2. �ѵĿռ���Դ��ͬ��ջ��Ҫ��ȡ�������ɳ���Ա�ֶ����룬Ȼ���ɲ���ϵͳ����һ�����㷨���з��䡣����ϵͳֻ���ڽ��̽���ʱ���Զ����ոý��̶�Ӧ�Ķѿռ���Դ����������ɳ���Ա�ֶ��ͷ���Դ��<br><br>—<br>## (��) ����Σ�Text Section��<br>ÿ�����������������ɵĶ����ƻ���ָ��Դ洢���ڴ�ռ��еĴ���Ρ�<br><br>—<br>## (��) ջ֡��Stack Frame��<br>�����ᵽ��ջ�ܹ�Ϊ�������з����㹻�Ŀռ���Դ��������Դ���Ϊջ֡��<br><br>1. ջ֡�ķ����ǴӸߵ�ַ��͵�ַ��ִ�еġ�<br>2. һ��ջ֡��С�������޵ģ�������͵�ַ��һ�˳�Ϊջ������ӽ��ߵ�ַ��һ�˳�Ϊջ�ף�<br>ջ����ַ��ջ�׵�ַ���Ա�����ר�ŵļĴ�����ߣ�������ר�ŵļĴ�����ŵ�ֵ���ǵ�ַ������ɷֱ��֮Ϊ<font color="red">ջ��ָ��</font>��<font color="red">ջ��ָ��</font>��<br>һ��ջ֡ջ�׵�ַ��ȥջ����ַ���õ�ֵ�����˸�ջ֡�Ĵ�С������ͨ����ջ��ָ���������Լ��ֱ����ջ֡����С������<br>3. һ������ջ֡�Ľṹ��ͼ 2 ��ʾ�����Ļ��ᵽ���ص�ַ��������ú����ֲ�����������Ϊ 0�����е�������������<br><center><br><span style="color:gray">ͼ 2. ��������ջ֡�Ľṹ</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="��������ջ֡�Ľṹ"><br><center><br><br>—<br>## (��) ��ջָ��Ĵ����ͻ�ַָ��Ĵ���<br>��ջָ��Ĵ����ͻ�ַָ��Ĵ���������ͨ�üĴ�����<br><br>1. ��ջָ��Ĵ����������ջ֡��ջ����ַ����������λ����ͬ���Է�Ϊ���֣�16λ�� sp��32λ�� esp��64λ�� rsp��Ϊ˵�����㣬������ esp Ϊ�����в�����<br>2. ��ַָ��Ĵ����������ջ֡��ջ�׵�ַ����������λ����ͬ���Է�Ϊ���֣�16λ�� bp��32λ�� ebp��64λ�� rbp��Ϊ˵�����㣬������ ebp Ϊ�����в�����<br><br>—<br>## (��) ָ��Ĵ��� ip<br>�üĴ������Ǵ��<font color="red">��һ��</font>ִ��ָ������ڵ�ַ��<br><br>—<br>## (��) ��ջָ�� push �ͳ�ջָ�� pop<br>push �� pop �����ڻ��ָ�<br><br>1. ��ջ������Ϊ��������һ��ջ��ָ���Լ�������ջ֡�ռ䣻�ڶ�������ĳ���Ĵ�����ֵ�����¿��ٵ�λ���ϡ�<br>2. ��ջ����ֻ��һ������һ����ջ��ָ����������Сջ֡�ռ䣬��ԭ�����ջ����ֵ����ĳ���Ĵ�����<br>3. ��ͼ 3 ��ʾ��<br><center><br><span style="color:gray">ͼ 3. ��ջָ�� push �ͳ�ջָ�� pop</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png" alt="��ջָ�� push �ͳ�ջָ�� pop"><br></center>
 
-<h2 id="八-函数调用指令-call"><a href="#八-函数调用指令-call" class="headerlink" title="(八) 函数调用指令 call"></a>(八) 函数调用指令 call</h2><p>call 也属于汇编指令。</p>
+<hr>
+<h2 id="��-��������ָ��-call"><a href="#��-��������ָ��-call" class="headerlink" title="(��) ��������ָ�� call"></a>(��) ��������ָ�� call</h2><p>call Ҳ���ڻ��ָ�</p>
 <ol>
-<li><p>调用一个函数时，一定会执行 call 指令，汇编中调用 printf 函数的写法如下。</p>
+<li><p>����һ������ʱ��һ����ִ�� call ָ�����е��� printf ������д�����¡�</p>
  <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">call</span> <span class="built_in">printf</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>call 指令包括两个步骤，第一步是让当前指令寄存器 ip 的值入栈，作为<font color="red">返回地址</font>，第二步是将指令寄存器 ip 的值修改为接下来即将调用的函数第一条机器指令的所在地址，从而实现跳转。</p>
+<li><p>call ָ������������裬��һ�����õ�ǰָ��Ĵ��� ip ��ֵ��ջ����Ϊ<font color="red">���ص�ַ</font>���ڶ����ǽ�ָ��Ĵ��� ip ��ֵ�޸�Ϊ�������������õĺ�����һ������ָ������ڵ�ַ���Ӷ�ʵ����ת��</p>
 </li>
 </ol>
-<h2 id="九-函数参数入栈顺序"><a href="#九-函数参数入栈顺序" class="headerlink" title="(九) 函数参数入栈顺序"></a>(九) 函数参数入栈顺序</h2><p>函数参数入栈顺序为从右到左。<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(<span class="number">1</span>, <span class="string">'A'</span>, <span class="number">3.14</span>)</span>;</span></span><br></pre></td></tr></table></figure></p>
-<p>该函数参数入栈顺序为 <code>3.14</code>，<code>&#39;A&#39;</code>，<code>1</code>。</p>
-<h2 id="十-不同函数的机器指令段的共性"><a href="#十-不同函数的机器指令段的共性" class="headerlink" title="(十) 不同函数的机器指令段的共性"></a>(十) 不同函数的机器指令段的共性</h2><p>每个函数的机器指令段的开头，都有以下几步操作：</p>
+<hr>
+<h2 id="��-����������ջ˳��"><a href="#��-����������ջ˳��" class="headerlink" title="(��) ����������ջ˳��"></a>(��) ����������ջ˳��</h2><p>����������ջ˳��Ϊ���ҵ���<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(<span class="number">1</span>, <span class="string">'A'</span>, <span class="number">3.14</span>)</span>;</span></span><br></pre></td></tr></table></figure></p>
+<p>�ú���������ջ˳��Ϊ <code>3.14</code>��<code>&#39;A&#39;</code>��<code>1</code>��</p>
+<hr>
+<h2 id="ʮ-��ͬ�����L���ָ��εL���"><a href="#ʮ-��ͬ�����L���ָ��εL���" class="headerlink" title="(ʮ) ��ͬ�����Ļ���ָ��εĹ���"></a>(ʮ) ��ͬ�����Ļ���ָ��εĹ���</h2><p>ÿ�������Ļ���ָ��εĿ�ͷ���������¼���������</p>
 <ol>
-<li>第一步，在栈帧中保存上一栈帧的栈底地址，汇编指令为 <code>push ebp</code>。</li>
-<li>第二步，将上一栈帧的栈顶地址作为当前函数栈帧的栈底地址，汇编指令为 <code>mov ebp, esp</code>。</li>
-<li>第三步，为当前函数的局部变量开辟足够的空间，汇编指令为 <code>sub esp, M</code>，M 为局部变量占用栈帧空间的字节数。</li>
+<li>��һ������ջ֡�б�����һջ֡��ջ�׵�ַ�����ָ��Ϊ <code>push ebp</code>��</li>
+<li>�ڶ���������һջ֡��ջ����ַ��Ϊ��ǰ����ջ֡��ջ�׵�ַ�����ָ��Ϊ <code>mov ebp, esp</code>��</li>
+<li>��������Ϊ��ǰ�����ľֲ����������㹻�Ŀռ䣬���ָ��Ϊ <code>sub esp, M</code>��M Ϊ�ֲ�����ռ��ջ֡�ռ���ֽ�����</li>
 </ol>
-<p>每个函数的机器指令段的末尾，都有以下几步操作：</p>
+<p>ÿ�������Ļ���ָ��ε�ĩβ���������¼���������</p>
 <ol>
-<li>第一步，将 esp 恢复为为局部变量开辟空间之前的值，汇编指令为 <code>mov esp, ebp</code>，恢复后，esp 的值恰好是上一栈帧栈底地址的地址。</li>
-<li>第二步，将 ebp 恢复为上一栈帧的栈底地址，汇编指令为 <code>mov ebp, $esp</code>，恢复后，esp 的值恰好是存放返回地址的地址。</li>
-<li>第三步，将 eip 恢复为 call 指令第一步骤所操作的值，汇编指令为 <code>mov eip, $esp</code>，恢复后，esp 的值恰好为刚执行完的函数的第一个形参的入栈地址。</li>
-<li>第四步，将 esp 值恢复为为刚执行完的函数的参数开辟空间之前的值，汇编指令为 <code>pop ...(arg)</code>，恢复后，esp 的值恰好是当前栈帧最靠近 0 地址的局部变量的地址。</li>
+<li>��һ������ esp �ָ�ΪΪ�ֲ��������ٿռ�֮ǰ��ֵ�����ָ��Ϊ <code>mov esp, ebp</code>���ָ���esp ��ֵǡ������һջ֡ջ�׵�ַ�ĵ�ַ��</li>
+<li>�ڶ������� ebp �ָ�Ϊ��һջ֡��ջ�׵�ַ�����ָ��Ϊ <code>mov ebp, $esp</code>���ָ���esp ��ֵǡ���Ǵ�ŷ��ص�ַ�ĵ�ַ��</li>
+<li>���������� eip �ָ�Ϊ call ָ���һ������������ֵ�����ָ��Ϊ <code>mov eip, $esp</code>���ָ���esp ��ֵǡ��Ϊ��ִ����ĺ����ĵ�һ���βε���ջ��ַ��</li>
+<li>���Ĳ����� esp ֵ�ָ�ΪΪ��ִ����ĺ����Ĳ������ٿռ�֮ǰ��ֵ�����ָ��Ϊ <code>pop ...(arg)</code>���ָ���esp ��ֵǡ���ǵ�ǰջ֡��� 0 ��ַ�ľֲ������ĵ�ַ��</li>
 </ol>
 <hr>
-<h1 id="二、C-C-函数调用过程剖解"><a href="#二、C-C-函数调用过程剖解" class="headerlink" title="二、C/C++ 函数调用过程剖解"></a>二、C/C++ 函数调用过程剖解</h1><p>以下列程序为例。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> apple = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> pear = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"apple = %d, pear = %d.\n"</span>, apple, pear);</span><br><span class="line">    total = apple + pear;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="����C-C-�������u����ʽ�"><a href="#����C-C-�������u����ʽ�" class="headerlink" title="����C/C++ �������ù����ʽ�"></a>����C/C++ �������ù����ʽ�</h1><p>�����г���Ϊ����<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> apple = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">int</span> pear = <span class="number">20</span>;</span><br><span class="line">    <span class="keyword">int</span> total = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"apple = %d, pear = %d.\n"</span>, apple, pear);</span><br><span class="line">    total = apple + pear;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ol>
-<li><code>printf</code> 函数调用之前，参数从右向左入栈。</li>
-<li>调用 call 指令，此时存储在指令寄存器 ip 中的值是 <code>printf</code> 函数下一条语句 <code>total = apple + pear;</code> 对应的机器指令的地址，该地址入栈，同时指令寄存器 ip 的值修改为 <code>printf</code> 函数在代码段中的第一条指令的地址。</li>
-<li>根据“一、(十)”可知，开始执行 <code>printf</code> 函数时，会进行三步操作——在 <code>printf</code> 函数栈帧中保存 <code>main</code> 函数栈帧的栈底地址；将 <code>main</code> 函数栈帧的栈顶地址作为 <code>printf</code> 函数栈帧的栈底地址；为 <code>printf</code> 函数的局部变量开辟足够的空间。三步操作执行完之后便开始执行 <code>printf</code> 函数的主体机器指令段。</li>
-<li>根据“一、(十)”可知，<code>printf</code> 函数的主体机器指令段执行完毕后，便开始收尾工作——将 esp 恢复为为 <code>printf</code> 函数局部变量开辟空间之前的值；将 ebp 恢复为 <code>main</code> 函数栈帧的栈底地址；将 eip 恢复为语句 <code>total = apple + pear;</code> 对应的机器指令地址；将 esp 值恢复为为 <code>printf</code> 函数的参数开辟空间之前的值，恢复后，esp 的值恰好是 <code>total</code> 的地址。</li>
+<li><code>printf</code> ��������֮ǰ����������������ջ��</li>
+<li>���� call ָ���ʱ�洢��ָ��Ĵ��� ip �е�ֵ�� <code>printf</code> ������һ����� <code>total = apple + pear;</code> ��Ӧ�Ļ���ָ��ĵ�ַ���õ�ַ��ջ��ͬʱָ��Ĵ��� ip ��ֵ�޸�Ϊ <code>printf</code> �����ڴ�����еĵ�һ��ָ��ĵ�ַ��</li>
+<li>���ݡ�һ��(ʮ)����֪����ʼִ�� <code>printf</code> ����ʱ��������������������� <code>printf</code> ����ջ֡�б��� <code>main</code> ����ջ֡��ջ�׵�ַ���� <code>main</code> ����ջ֡��ջ����ַ��Ϊ <code>printf</code> ����ջ֡��ջ�׵�ַ��Ϊ <code>printf</code> �����ľֲ����������㹻�Ŀռ䡣��������ִ����֮��㿪ʼִ�� <code>printf</code> �������������ָ��Ρ�</li>
+<li>���ݡ�һ��(ʮ)����֪��<code>printf</code> �������������ָ���ִ����Ϻ󣬱㿪ʼ��β���������� esp �ָ�ΪΪ <code>printf</code> �����ֲ��������ٿռ�֮ǰ��ֵ���� ebp �ָ�Ϊ <code>main</code> ����ջ֡��ջ�׵�ַ���� eip �ָ�Ϊ��� <code>total = apple + pear;</code> ��Ӧ�Ļ���ָ���ַ���� esp ֵ�ָ�ΪΪ <code>printf</code> �����Ĳ������ٿռ�֮ǰ��ֵ���ָ���esp ��ֵǡ���� <code>total</code> �ĵ�ַ��</li>
 </ol>
 </center></center>
       
@@ -576,7 +579,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -621,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、预备知识"><span class="nav-text">一、预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-内存中数据的地址"><span class="nav-text">(一) 内存中数据的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八-函数调用指令-call"><span class="nav-text">(八) 函数调用指令 call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九-函数参数入栈顺序"><span class="nav-text">(九) 函数参数入栈顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十-不同函数的机器指令段的共性"><span class="nav-text">(十) 不同函数的机器指令段的共性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、C-C-函数调用过程剖解"><span class="nav-text">二、C/C++ 函数调用过程剖解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#һ��Ԥ��֪ʶ"><span class="nav-text">һ��Ԥ��֪ʶ</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#һ-�ڴ������ݵj�ַ"><span class="nav-text">(һ) �ڴ������ݵĵ�ַ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#��-��������ָ��-call"><span class="nav-text">(��) ��������ָ�� call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#��-����������ջ˳��"><span class="nav-text">(��) ����������ջ˳��</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ʮ-��ͬ�����L���ָ��εL���"><span class="nav-text">(ʮ) ��ͬ�����Ļ���ָ��εĹ���</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#����C-C-�������u����ʽ�"><span class="nav-text">����C/C++ �������ù����ʽ�</span></a></li></ol></div>
             
 
           </div>
