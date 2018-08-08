@@ -82,20 +82,20 @@
 
 
 
-<meta name="description" content="title: C/C++ 函数调用原理date: 2018-08-08 09:48:52tags:categories: 计算机底层  在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
+<meta name="description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hubbard Huang">
+<meta property="og:title" content="C&#x2F;C++ 函数调用原理">
 <meta property="og:url" content="http://yoursite.com/2018/08/08/C语言函数调用原理/index.html">
 <meta property="og:site_name" content="Hubbard Huang">
-<meta property="og:description" content="title: C/C++ 函数调用原理date: 2018-08-08 09:48:52tags:categories: 计算机底层  在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
+<meta property="og:description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png">
-<meta property="og:updated_time" content="2018-08-08T03:21:33.092Z">
+<meta property="og:updated_time" content="2018-08-08T03:23:00.597Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hubbard Huang">
-<meta name="twitter:description" content="title: C/C++ 函数调用原理date: 2018-08-08 09:48:52tags:categories: 计算机底层  在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
+<meta name="twitter:title" content="C&#x2F;C++ 函数调用原理">
+<meta name="twitter:description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
 <meta name="twitter:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png">
 
 
@@ -132,7 +132,7 @@
 
 
 
-  <title> | Hubbard Huang</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>C/C++ 函数调用原理 | Hubbard Huang</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -312,7 +312,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">C/C++ 函数调用原理</h1>
         
 
         <div class="post-meta">
@@ -334,6 +334,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机底层/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机底层</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -362,10 +384,7 @@
       
 
       
-        <hr>
-<p>title: C/C++ 函数调用原理<br>date: 2018-08-08 09:48:52<br>tags:<br>categories: 计算机底层</p>
-<hr>
-<p>在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。<br><a id="more"></a></p>
+        <p>在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。<br><a id="more"></a></p>
 <h1 id="一、预备知识"><a href="#一、预备知识" class="headerlink" title="一、预备知识"></a><strong>一、预备知识</strong></h1><h2 id="一-内存中数据的地址"><a href="#一-内存中数据的地址" class="headerlink" title="(一) 内存中数据的地址"></a>(一) 内存中数据的地址</h2><p>地址在内存中存放时可能会跨越连续若干个存储单元（一个存储单元的大小为 1 个字节），而每个存储单元都有自己的编号，这个编号称为地址。机器规定以最小的编号作为该数据的地址。<br>请看以下代码和图 1。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uint8_t a = <span class="number">7</span><span class="comment">;</span></span><br><span class="line">uint16_t <span class="keyword">b </span>= <span class="number">500</span><span class="comment">;</span></span><br><span class="line">uint32_t c = <span class="number">1000</span><span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
 <p><center><br><span style="color:gray">图 1. 内存中数据的地址</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png" alt="内存中数据的地址"><br></center><br>变量 a 占据编号为 24 的内存单元，变量 b 占据编号为 25~26 的内存单元，变量 c 占据编号为 27~30 的内存单元。<br>依据约定，变量 a，b，c 的地址分别为 24，25，27。</p>
 <h2 id="二-堆（Heap）和堆栈（Stack）"><a href="#二-堆（Heap）和堆栈（Stack）" class="headerlink" title="(二) 堆（Heap）和堆栈（Stack）"></a>(二) 堆（Heap）和堆栈（Stack）</h2><ol>
