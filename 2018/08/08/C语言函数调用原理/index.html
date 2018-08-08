@@ -91,8 +91,8 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%86%85%E5%AD%98%E4%B8%AD%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9C%B0%E5%9D%80.png">
 <meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png">
-<meta property="og:updated_time" content="2018-08-08T03:45:38.270Z">
+<meta property="og:image" content="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%8F%8A%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png">
+<meta property="og:updated_time" content="2018-08-08T04:12:13.368Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C&#x2F;C++ 函数调用原理">
 <meta name="twitter:description" content="在 C/C++ 函数调用的整个过程中内存空间进行了什么操作？本文对 C/C++ 函数调用原理进行扼要说明。">
@@ -397,7 +397,7 @@
 <ol>
 <li>栈帧的分配是从高地址向低地址逐步执行的。</li>
 <li>一个栈帧大小不是无限的，其最靠近低地址的一端称为栈顶，最接近高地址的一端称为栈底，<br>栈顶地址和栈底地址各自保存在专门的寄存器里边，这两个专门的寄存器存放的值都是地址，故亦可分别称之为<font color="red">栈顶指针</font>、<font color="red">栈底指针</font>。<br>一个栈帧栈底地址减去栈顶地址所得的值决定了该栈帧的大小，可以通过让栈顶指针自增与自减分别控制栈帧的缩小与扩大。</li>
-<li>一个函数栈帧的结构如图 2 所示（下文会提到返回地址），假设该函数局部变量个数不为 0，且有调用其他函数。<center><br><span style="color:gray">图 2. 单个函数栈帧的结构</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="单个函数栈帧的结构"><br></center>
+<li>一个函数栈帧的结构如图 2 所示（下文会提到返回地址），假设该函数局部变量个数不为 0，且有调用其他函数。<center><br><span style="color:gray">图 2. 单个函数栈帧的结构</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%8D%95%E4%B8%AA%E5%87%BD%E6%95%B0%E6%A0%88%E5%B8%A7%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="单个函数栈帧的结构"><br></center><center></center>
 
 </li>
 </ol>
@@ -411,7 +411,7 @@
 <ol>
 <li>入栈操作分为两步。第一步栈顶指针自减以扩大栈帧空间；第二步，将某个寄存器的值保存新开辟的位置上。</li>
 <li>出栈操作只有一步。第一步，栈顶指针自增以缩小栈帧空间，将原先最靠近栈顶的值赋予某个寄存器。</li>
-<li>如图 3 所示。<center><br><span style="color:gray">图 3. 入栈指令 push 和出栈指令 pop</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%92%8C%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png" alt="入栈指令 push 和出栈指令 pop"><br></center><center></center>
+<li>如图 3 所示。<center><br><span style="color:gray">图 3. 入栈指令 push 和出栈指令 pop</span><br><img src="http://pcny8g0ca.bkt.clouddn.com/%E5%85%A5%E6%A0%88%E6%8C%87%E4%BB%A4%20push%20%E5%8F%8A%E5%87%BA%E6%A0%88%E6%8C%87%E4%BB%A4%20pop.png" alt="入栈指令 push 和出栈指令 pop"><br></center><center></center>
 
 </li>
 </ol>
